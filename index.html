@@ -313,6 +313,7 @@ input[type=file]{display:none}
     <div class="mtitle">小熊</div>
     <button data-act="gh">☁️ 自动同步到主屏幕：关</button>
     <button data-act="ghCfg">⚙️ 云同步设置</button>
+    <button data-act="pull">⬇️ 从云端拉回任务</button>
     <button data-act="syncBear">📲 手动同步一次（Scriptable 小组件）</button>
     <button data-act="bear">🐻 页面里的小熊：开</button>
     <div class="mtitle">管理</div>
@@ -390,29 +391,30 @@ function parseText(raw){
   const now = new Date();
   let date = null, hh = null, mi = 0;
 
-  const take = re => {
+  // take 只吃掉「确认可用」的片段；validator 不通过就把原文留着
+  const take = (re, ok) => {
     const m = text.match(re);
-    if(m) text = text.replace(m[0], ' ');
+    if(!m) return null;
+    if(ok && !ok(m)) return null;
+    text = text.replace(m[0], ' ');
     return m;
   };
 
   // 1. 2026-11-20 / 2026年11月20日
-  let m = take(/(20\d{2})\s*[-/.年]\s*(\d{1,2})\s*[-/.月]\s*(\d{1,2})\s*[日号]?/);
-  if(m){
-    const y=+m[1], mo=+m[2], da=+m[3];
-    if(mo>=1&&mo<=12&&da>=1&&da<=31) date = new Date(y, mo-1, da);
-  }
+  let m = take(/(?<![A-Za-z0-9])(20\d{2})\s*[-/.年]\s*(\d{1,2})\s*[-/.月]\s*(\d{1,2})\s*[日号]?\s*(?:之前|以前|前)?/,
+    mm => { const mo=+mm[2], da=+mm[3]; return mo>=1&&mo<=12&&da>=1&&da<=31; });
+  if(m) date = new Date(+m[1], +m[2]-1, +m[3]);
 
   // 2. 11月20日 / 11/20 / 11-20
+  //    前后紧挨字母或「页章节题」的不算日期，避免把 p36-38、第3-5章 吃掉
   if(!date){
-    m = take(/(\d{1,2})\s*[月\/\-]\s*(\d{1,2})\s*[日号]?(?!\s*[天小个])/);
+    m = take(/(?<![A-Za-z0-9])(\d{1,2})\s*[月\/\-]\s*(\d{1,2})\s*[日号]?\s*(?:之前|以前|前)?(?!\s*[天小个])(?![A-Za-z0-9页章节题])/,
+      mm => { const mo=+mm[1], da=+mm[2]; return mo>=1&&mo<=12&&da>=1&&da<=31; });
     if(m){
       const mo=+m[1], da=+m[2];
-      if(mo>=1&&mo<=12&&da>=1&&da<=31){
-        const y = now.getFullYear();
-        date = new Date(y, mo-1, da);
-        if(date.getTime() < now.getTime() - 60*864e5) date = new Date(y+1, mo-1, da);
-      }
+      const y = now.getFullYear();
+      date = new Date(y, mo-1, da);
+      if(date.getTime() < now.getTime() - 60*864e5) date = new Date(y+1, mo-1, da);
     }
   }
 
@@ -466,23 +468,18 @@ function parseText(raw){
     if(m) date = new Date(now.getFullYear(), now.getMonth()+1, 1);
   }
   if(!date){
-    m = take(/下个?月\s*(\d{1,2})\s*[号日]?/);
-    if(m){
-      const da = +m[1];
-      if(da >= 1 && da <= 31) date = new Date(now.getFullYear(), now.getMonth()+1, da);
-    }
+    m = take(/下个?月\s*(\d{1,2})\s*[号日]?/, mm => +mm[1] >= 1 && +mm[1] <= 31);
+    if(m) date = new Date(now.getFullYear(), now.getMonth()+1, +m[1]);
   }
 
   // 8. 单独的「20号」（不带月份）
   if(!date){
-    m = take(/(\d{1,2})\s*[号日](?!\s*[楼室线门期])/);
+    m = take(/(\d{1,2})\s*[号日](?!\s*[楼室线门期])/, mm => +mm[1] >= 1 && +mm[1] <= 31);
     if(m){
       const da = +m[1];
-      if(da >= 1 && da <= 31){
-        let cand = new Date(now.getFullYear(), now.getMonth(), da);
-        if(cand.getTime() < startOfDay(now).getTime()) cand = new Date(now.getFullYear(), now.getMonth()+1, da);
-        date = cand;
-      }
+      let cand = new Date(now.getFullYear(), now.getMonth(), da);
+      if(cand.getTime() < startOfDay(now).getTime()) cand = new Date(now.getFullYear(), now.getMonth()+1, da);
+      date = cand;
     }
   }
 
@@ -557,6 +554,7 @@ function parseText(raw){
     .replace(/@所有人|@全体成员|收到请回复[.。]?|请相互转告[.。]?|逾期不候|过期不候/g, ' ')
     .replace(/(截止|截至|deadline|DDL|ddl)\s*(时间|日期)?\s*[:：]?/gi, ' ')
     .replace(/(请于|于|在)\s*前/g, ' ')
+    .replace(/\s*([，,。；;：:])\s*/g, '$1')
     .replace(/\s+/g,' ')
     .trim()
     .replace(/^[，,。;；:：、\-—~\s]+/, '')
@@ -1045,6 +1043,67 @@ async function pushNow(){
   }
 }
 
+function unb64utf8(b64){
+  const bin = atob(String(b64 || '').replace(/\s/g,''));
+  const bytes = new Uint8Array(bin.length);
+  for(let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
+}
+
+/* 把云端 data.json 里的任务合并回本地：换设备、删了图标重装、误清之后用它 */
+async function pullCloud(){
+  if(!gh || !gh.owner || !gh.repo){ toast('先在「云同步设置」里填仓库'); return; }
+  toast('正在从云端拉取…');
+
+  let arr = null;
+  try{
+    if(gh.token){
+      const r = await ghFetch('/contents/data.json?t=' + Date.now());
+      if(r.status === 404) throw new Error('仓库里还没有 data.json');
+      if(r.status === 401) throw new Error('令牌无效或已过期');
+      if(!r.ok) throw new Error('HTTP ' + r.status);
+      arr = JSON.parse(unb64utf8((await r.json()).content));
+    } else {
+      const r = await fetch('https://raw.githubusercontent.com/' + gh.owner + '/' + gh.repo +
+        '/main/data.json?t=' + Date.now(), { cache: 'no-store' });
+      if(!r.ok) throw new Error('HTTP ' + r.status + '（没填令牌时只能读公开仓库）');
+      arr = await r.json();
+    }
+    if(!Array.isArray(arr)) throw new Error('内容不是任务列表');
+  }catch(e){
+    toast('拉取失败：' + e.message);
+    return;
+  }
+
+  const cut = Date.now() - KEEP_MS;
+  const have = new Set(tasks.map(t => t.id));
+  let added = 0, skipped = 0;
+  arr.forEach(function(row){
+    const id = String(row[0] || '');
+    if(!id || have.has(id)) return;
+    const due = Number(row[2]) || 0;
+    if(!due || due < cut){ skipped++; return; }   // 超过 5 天的老任务不再捡回来
+    tasks.push({
+      id: id,
+      title: String(row[1] || '未命名'),
+      due: due,
+      cat: String(row[3] || 'course'),
+      place: String(row[4] || ''),
+      done: !!row[5],
+      created: Date.now()
+    });
+    have.add(id);
+    added++;
+  });
+
+  if(added){
+    save(); render();
+    toast('已从云端拉回 ' + added + ' 条' + (skipped ? '，跳过 ' + skipped + ' 条过期' : ''));
+  } else {
+    toast(skipped ? '云端只剩 ' + skipped + ' 条过期任务' : '云端没有新任务');
+  }
+}
+
 function updateGHLabels(){
   const b = document.querySelector('[data-act="gh"]');
   if(b) b.textContent = ghReady() ? '☁️ 自动同步到主屏幕：开' : '☁️ 自动同步到主屏幕：关';
@@ -1133,6 +1192,7 @@ menuDlg.addEventListener('click', e=>{
     if(!bearOn) hideSay();
     toast(bearOn ? '小熊回来了' : '小熊先去睡觉了');
   }
+  if(act === 'pull') pullCloud();
   if(act === 'clearDone'){
     const n = tasks.filter(t=>t.done).length;
     if(n === 0){ toast('没有已完成的任务'); return; }
