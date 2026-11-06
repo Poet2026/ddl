@@ -1,4 +1,4 @@
-const CACHE = 'ddl-inbox-v3';
+const CACHE = 'ddl-inbox-v5';
 const ASSETS = [
   './',
   './index.html',
@@ -27,20 +27,41 @@ self.addEventListener('activate', function(e){
 self.addEventListener('fetch', function(e){
   const req = e.request;
   if(req.method !== 'GET') return;
-  if(new URL(req.url).origin !== self.location.origin) return;
 
-  e.respondWith(
-    caches.match(req).then(function(cached){
-      const network = fetch(req).then(function(res){
-        if(res && res.status === 200 && res.type === 'basic'){
+  const url = new URL(req.url);
+  if(url.origin !== self.location.origin) return;
+
+  // 页面本身：先走网络取最新版，断网才用缓存
+  const isDoc = req.mode === 'navigate' ||
+                url.pathname.endsWith('/') ||
+                url.pathname.endsWith('index.html');
+
+  if(isDoc){
+    e.respondWith(
+      fetch(req).then(function(res){
+        if(res && res.status === 200){
           const copy = res.clone();
           caches.open(CACHE).then(function(c){ c.put(req, copy); });
         }
         return res;
       }).catch(function(){
-        return cached || caches.match('./index.html');
+        return caches.match(req).then(function(r){ return r || caches.match('./index.html'); });
+      })
+    );
+    return;
+  }
+
+  // 图标等静态资源：缓存优先
+  e.respondWith(
+    caches.match(req).then(function(cached){
+      if(cached) return cached;
+      return fetch(req).then(function(res){
+        if(res && res.status === 200 && res.type === 'basic'){
+          const copy = res.clone();
+          caches.open(CACHE).then(function(c){ c.put(req, copy); });
+        }
+        return res;
       });
-      return cached || network;
     })
   );
 });

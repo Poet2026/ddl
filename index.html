@@ -1,19 +1,18 @@
 <!DOCTYPE html>
-<html data-page-node-id="9MjprJjTs7r9s2y423vi73" lang="zh-CN">
-<head data-page-node-id="vEPBZOb0xObJg3fsIU94sY">
-<script data-page-node-id="tPmkwW5BmvSKmo8ayuSEFd" src="/page/page_comm/inject.js"></script>
-<meta data-page-node-id="EA4h4kK2SMzFeeNMUG8NFz" charset="UTF-8">
-<meta data-page-node-id="Ek3Ibpqc2xvHFVuPGztvaa" content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport">
-<meta data-page-node-id="c9J7vcUspHIB4lSGQ3CxZD" content="yes" name="apple-mobile-web-app-capable">
-<meta data-page-node-id="nfzMDBx1WpPa5zU6WMJxdF" content="DDL收件箱" name="apple-mobile-web-app-title">
-<meta data-page-node-id="WmXX7BpGcaW0FCALlvsNxp" content="default" name="apple-mobile-web-app-status-bar-style">
-<meta data-page-node-id="6YkOSRZgf83rdrbojZla0H" content="yes" name="mobile-web-app-capable">
-<meta data-page-node-id="XcartrfjsbqUDImcJ2oP8o" content="#f4f5f7" name="theme-color">
-<title data-page-node-id="ubVSRsO5FyrcUB9cr6eqvf" data-pnid-children="uDZVmBcO3jTwIbMqnWHKRv">DDL 收件箱</title>
-<link data-page-node-id="VrMaV4b8IVJV9K8WZC9bsq" href="./manifest.webmanifest" rel="manifest">
-<link data-page-node-id="isS95FHKZ3N1Se8ySumjTb" href="./apple-touch-icon.png" rel="apple-touch-icon">
-<link data-page-node-id="YCObtNP5K8ljad9cboyjMo" href="./icon-192.png" rel="icon" type="image/png">
-<style data-page-node-id="GwifmsZ2CDxhKaDEnVOLYb" data-pnid-children="riTAgn7CsI918RPEqtnldg">
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="DDL收件箱">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#f4f5f7">
+<title>DDL 收件箱</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="icon" type="image/png" href="./icon-192.png">
+<style>
 :root{
   --bg:#f4f5f7;
   --card:#ffffff;
@@ -135,7 +134,7 @@ dialog::backdrop{background:rgba(16,18,24,.34);backdrop-filter:blur(2px)}
 .sheet h3{margin:0 0 16px;font-size:16px;font-weight:700}
 .field{margin-bottom:14px}
 .field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:500}
-.field input[type=text],.field input[type=datetime-local]{width:100%;border:1px solid var(--line);background:#f7f8fa;border-radius:10px;padding:10px 12px;font-size:14.5px;outline:none}
+.field input[type=text],.field input[type=password],.field input[type=datetime-local]{width:100%;border:1px solid var(--line);background:#f7f8fa;border-radius:10px;padding:10px 12px;font-size:14.5px;outline:none}
 .field input:focus{background:#fff;border-color:#c3cdf5}
 .raw-box{background:#f7f8fa;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:12.5px;color:var(--sub);line-height:1.65;max-height:96px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;-webkit-user-select:text;user-select:text}
 .cats{display:flex;gap:7px;flex-wrap:wrap}
@@ -151,7 +150,17 @@ dialog::backdrop{background:rgba(16,18,24,.34);backdrop-filter:blur(2px)}
 .menu button:active{background:#f4f5f7}
 .menu button.danger{color:var(--red)}
 .menu .mtitle{font-size:12px;color:var(--muted);padding:8px 12px 4px;font-weight:600}
+.menu .mnote{font-size:12px;color:var(--muted);padding:0 12px 6px;line-height:1.5}
 
+.syncbar{display:none;flex:none;margin:0 18px 8px;padding:8px 12px;border-radius:11px;background:#fff6e8;border:1px solid #ffe2bc;color:#8a5a00;font-size:12.5px;align-items:center;gap:8px;line-height:1.35}
+.syncbar.show{display:flex}
+.syncbar.err{background:#fdeeee;border-color:#f8d3d3;color:#a32a2a}
+.syncbar button{margin-left:auto;flex:none;font-size:12.5px;font-weight:600;color:inherit;text-decoration:underline;padding:2px 0}
+.gh-tip{font-size:12.5px;color:var(--muted);line-height:1.55;margin:2px 0 14px}
+.gh-tip b{color:var(--ink)}
+#gh-msg{font-size:12.5px;margin-top:4px;min-height:18px}
+.gh-row{display:flex;gap:8px}
+.gh-row .field{flex:1;min-width:0}
 .toast{position:fixed;left:50%;bottom:168px;transform:translate(-50%,12px);background:rgba(21,23,28,.95);color:#fff;font-size:13px;padding:9px 16px;border-radius:20px;opacity:0;pointer-events:none;transition:.22s;z-index:99;white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.18)}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 /* ---------- 小熊 ---------- */
@@ -201,114 +210,142 @@ dialog::backdrop{background:rgba(16,18,24,.34);backdrop-filter:blur(2px)}
 input[type=file]{display:none}
 </style>
 </head>
-<body data-page-node-id="3CnxSmqJeyCCNhf17TZDuU">
-<div data-page-node-id="AJ0zHSqcZY4uTMrKzk8uxs" class="app">
-  <header data-page-node-id="5jRsTiePShatWvNX5NI483">
-    <div data-page-node-id="6MO41r6hJYgMxyVv7OCSel" class="hrow">
-      <div data-page-node-id="4pwCQJVIJr8ohEC6soeHAQ">
-        <h1 data-page-node-id="4LeiMXcTIlp7bCqmzFZudp"><!--pnid:NhJvajLcPOle0pfVXEKreo-->DDL 收件箱</h1>
-        <p data-page-node-id="8guO6BzQ39gTNvbbvqMLZq" class="tagline"><!--pnid:OqKXDxSlaDbTp98GoBrwwh-->微信里的碎片，倒进这里就不会忘</p>
+<body>
+<div class="app">
+  <header>
+    <div class="hrow">
+      <div>
+        <h1>DDL 收件箱</h1>
+        <p class="tagline">微信里的碎片，倒进这里就不会忘</p>
       </div>
-      <button data-page-node-id="Fb0Gfj4GGssYaxbYcfcBHH" aria-label="更多" class="icon-btn" id="menuBtn">
-        <svg data-page-node-id="hkrqcQYsYiZJwDbYl1UPcd" fill="currentColor" height="18" viewBox="0 0 24 24" width="18"><circle data-page-node-id="gdtCdx9V6Xxyihx0bCtTpe" cx="5" cy="12" r="1.8"/><circle data-page-node-id="tl77Opg3hA4ytsDQrDIrfk" cx="12" cy="12" r="1.8"/><circle data-page-node-id="QKrn0s0ZRSkvKg3XOx6e3G" cx="19" cy="12" r="1.8"/></svg>
+      <button class="icon-btn" id="menuBtn" aria-label="更多">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>
       </button>
     </div>
-    <div data-page-node-id="roe9m8umxB1G53wcPrvCTv" class="stats">
-      <div data-page-node-id="VuokN8fPD6FrJA02x2FguJ" class="stat"><b data-page-node-id="ST1h9RdbBEaXJAKt8ueiTc" id="s-todo"><!--pnid:0WoCiNhofvn2We7SUUwMy7-->0</b><span data-page-node-id="gVWdezPI8IDtxbFWGNEcpe"><!--pnid:13LAoWmV7pjc862BHtieLl-->待办</span></div>
-      <div data-page-node-id="55XbY5aowEGizMM95zFt6F" class="stat"><b data-page-node-id="Q7kkKvYKEZaaxpZlaKfhup" id="s-today"><!--pnid:flaG7JuuTwLFdE9UnlDb1h-->0</b><span data-page-node-id="3LWlivgkyPaqToKL6rvrft"><!--pnid:uhQxfIFUqC2kjRikD9ZKAN-->今天</span></div>
-      <div data-page-node-id="1W5iTT4kFSd6hCJ3vi1NuF" class="stat hot" id="stat-over"><b data-page-node-id="hGRQf3fylaZcT3nHbsSUQ7" id="s-over"><!--pnid:jguiLtXLXijEF4Nrd2PBaW-->0</b><span data-page-node-id="6Gi4lQBuejbVQB8QizE6ty"><!--pnid:jNTdPARQdqvSKKFMWf48Ah-->逾期</span></div>
+    <div class="stats">
+      <div class="stat"><b id="s-todo">0</b><span>待办</span></div>
+      <div class="stat"><b id="s-today">0</b><span>今天</span></div>
+      <div class="stat hot" id="stat-over"><b id="s-over">0</b><span>逾期</span></div>
     </div>
   </header>
 
-  <main data-page-node-id="ODLYMDAKEZJXkencR9Q8ut" id="main"></main>
+  <div class="syncbar" id="syncBar">
+    <span id="syncTxt"></span>
+    <button id="syncRetry">重试</button>
+  </div>
 
-  <div data-page-node-id="fDicZiYeJZTrsJOJfbmsN2" class="composer">
-    <p data-page-node-id="RLOINLE1c1gXVWfza8lge8" class="hint" id="hint"><!--pnid:0mm46xfq7Z8i6F2gvO9uW0-->粘贴或输入一句话，自动识别截止时间</p>
-    <div data-page-node-id="qeXol4jIypQyZyaLjie36R" class="crow">
-      <textarea data-page-node-id="tZo6uvGB780r03zf8eMTfb" id="inp" placeholder="例：下周五前交近代史论文" rows="1"></textarea>
-      <button data-page-node-id="R2qJwXGFMffhOENRevytXq" aria-label="添加" class="send" id="addBtn">
-        <svg data-page-node-id="ji3Q69xE1rScEI9Kmjo3XH" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewBox="0 0 24 24" width="20"><path data-page-node-id="nPjpwit4FRltKfkLP9zCwI" d="M12 19V5M5 12l7-7 7 7"/></svg>
+  <main id="main"></main>
+
+  <div class="composer">
+    <p class="hint" id="hint">粘贴或输入一句话，自动识别截止时间</p>
+    <div class="crow">
+      <textarea id="inp" rows="1" placeholder="例：下周五前交近代史论文"></textarea>
+      <button class="send" id="addBtn" aria-label="添加">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
       </button>
     </div>
-    <div data-page-node-id="9JFNsfs2ANiC9tI2ix5zTA" class="catbar" id="catbar"></div>
+    <div class="catbar" id="catbar"></div>
   </div>
 </div>
 
-<!--pnid:Q2KjfUz9jBT6sJO1xwMTgn--><!-- 小熊 -->
-<div data-page-node-id="aj6ysUhCNXfSx8izMNocFr" class="bear-float" id="bearFloat">
-  <div data-page-node-id="ecNqJE28CIOpYhO3PdUhKV" class="bear-say" id="bearSay">
-    <div data-page-node-id="mTuy0LmiRRK88E5TECUQuY" class="say-tag" id="sayTag"><!--pnid:czWmuWjoXDhPWh0tUCoqOl-->还剩 1 天</div>
-    <div data-page-node-id="vSunR3cCyM5duYM773idXh" class="say-text" id="sayText"><!--pnid:4HBZiYHJGDwOMZ1Pl4rcOs-->任务名称</div>
-    <div data-page-node-id="kiWSLxKs0JCVAQiIBAxvCW" class="say-more" id="sayMore" style="display:none"></div>
-    <div data-page-node-id="68yv8U2Mcm2yLb1LD23MZc" class="say-actions">
-      <button data-page-node-id="lSvMwVGM9IoxyAAeEEwNgU" class="say-btn done" id="sayDone"><!--pnid:My1WPzZ5A26Pz7uDqBMQ2g-->搞定啦</button>
-      <button data-page-node-id="YBTfMlxHaCv6hJdUXe3MpO" class="say-btn later" id="sayLater"><!--pnid:WEfmvWPXtPPpEStQTXFNQV-->等会儿</button>
+<!-- 小熊 -->
+<div class="bear-float" id="bearFloat">
+  <div class="bear-say" id="bearSay">
+    <div class="say-tag" id="sayTag">还剩 1 天</div>
+    <div class="say-text" id="sayText">任务名称</div>
+    <div class="say-more" id="sayMore" style="display:none"></div>
+    <div class="say-actions">
+      <button class="say-btn done" id="sayDone">搞定啦</button>
+      <button class="say-btn later" id="sayLater">等会儿</button>
     </div>
   </div>
-  <button data-page-node-id="IubzBm68gPEcnMn2o0MdDp" aria-label="小熊" class="bear-body" id="bearBody">
-    <svg data-page-node-id="Wyi4GBhvcv2NP25bCOH0gf" height="82" viewBox="0 0 100 112" width="74">
-      <ellipse data-page-node-id="RcU9ZBekijgfbt0q86qQFZ" cx="50" cy="88" fill="#c08b5c" rx="23" ry="21"/>
-      <ellipse data-page-node-id="52ieoQf1a1qoe0yGMbTaV0" cx="50" cy="92" fill="#f0dcc4" rx="13" ry="11"/>
-      <ellipse data-page-node-id="A0gep9RCIi82LLrwVDcJwb" cx="35" cy="104" fill="#a86f42" rx="10" ry="7.5"/>
-      <ellipse data-page-node-id="8WldcV2n2KaSGdo9PTGaI9" cx="65" cy="104" fill="#a86f42" rx="10" ry="7.5"/>
-      <ellipse data-page-node-id="U42mN3eKl7uJaB3sDiMWPW" cx="26" cy="82" fill="#b57c4e" rx="7.5" ry="9.5" transform="rotate(-12 26 82)"/>
-      <ellipse data-page-node-id="P47jajYUISGXEZZCW7prya" cx="74" cy="82" fill="#b57c4e" rx="7.5" ry="9.5" transform="rotate(12 74 82)"/>
-      <circle data-page-node-id="3vMlxq4cuNoG9D2wY9XhFE" cx="27" cy="21" fill="#c08b5c" r="11"/>
-      <circle data-page-node-id="PA05kUaV9c8PsgJqum1aiF" cx="73" cy="21" fill="#c08b5c" r="11"/>
-      <circle data-page-node-id="guP95TLQJLldWbA9NiNozq" cx="27" cy="21" fill="#e8b98f" r="6"/>
-      <circle data-page-node-id="xi6YTMHfSP1PqbK9onhGYy" cx="73" cy="21" fill="#e8b98f" r="6"/>
-      <circle data-page-node-id="oXx73ZZ8yy22sQkIBN5Uig" cx="50" cy="45" fill="#c08b5c" r="29"/>
-      <ellipse data-page-node-id="MkWGCpda7EBYeSgkURaqu2" cx="50" cy="55" fill="#f3e2cc" rx="17" ry="13"/>
-      <ellipse data-page-node-id="p0lF5bsI9j1Ud4rIwGUOqp" class="eye" cx="38.5" cy="41" fill="#2e1d12" rx="5" ry="5.4"/>
-      <ellipse data-page-node-id="OViqStanwY7LYzYZxtSNXs" class="eye" cx="61.5" cy="41" fill="#2e1d12" rx="5" ry="5.4"/>
-      <circle data-page-node-id="0M0L9acHkBdDy0RnJGePhM" cx="40" cy="39.2" fill="#fff" r="1.7"/>
-      <circle data-page-node-id="xDS9Au4ojQNpdGXrqXEcKo" cx="63" cy="39.2" fill="#fff" r="1.7"/>
-      <ellipse data-page-node-id="jA3rvUyKfDY7VnUnP65IxQ" cx="50" cy="50" fill="#3d2817" rx="5.2" ry="3.9"/>
-      <ellipse data-page-node-id="VtyeiI285OuQTMZAQ3jZd8" cx="49" cy="49.2" fill="#6b5546" rx="1.2" ry=".8"/>
-      <path data-page-node-id="LCrHnHu1DbIeThiUXzrmQ0" d="M50 53.5 L50 56.5 M50 56.5 Q45.5 60 43 56.5 M50 56.5 Q54.5 60 57 56.5" fill="none" stroke="#3d2817" stroke-linecap="round" stroke-width="1.7"/>
-      <circle data-page-node-id="0mHA2TpPo7sofPrrTJH6pl" cx="29" cy="53" fill="#e88b8b" opacity=".45" r="6"/>
-      <circle data-page-node-id="TPl2JLiiehHmAa4YocLmtg" cx="71" cy="53" fill="#e88b8b" opacity=".45" r="6"/>
+  <button class="bear-body" id="bearBody" aria-label="小熊">
+    <svg viewBox="0 0 100 112" width="74" height="82">
+      <ellipse cx="50" cy="88" rx="23" ry="21" fill="#c08b5c"/>
+      <ellipse cx="50" cy="92" rx="13" ry="11" fill="#f0dcc4"/>
+      <ellipse cx="35" cy="104" rx="10" ry="7.5" fill="#a86f42"/>
+      <ellipse cx="65" cy="104" rx="10" ry="7.5" fill="#a86f42"/>
+      <ellipse cx="26" cy="82" rx="7.5" ry="9.5" fill="#b57c4e" transform="rotate(-12 26 82)"/>
+      <ellipse cx="74" cy="82" rx="7.5" ry="9.5" fill="#b57c4e" transform="rotate(12 74 82)"/>
+      <circle cx="27" cy="21" r="11" fill="#c08b5c"/>
+      <circle cx="73" cy="21" r="11" fill="#c08b5c"/>
+      <circle cx="27" cy="21" r="6" fill="#e8b98f"/>
+      <circle cx="73" cy="21" r="6" fill="#e8b98f"/>
+      <circle cx="50" cy="45" r="29" fill="#c08b5c"/>
+      <ellipse cx="50" cy="55" rx="17" ry="13" fill="#f3e2cc"/>
+      <ellipse class="eye" cx="38.5" cy="41" rx="5" ry="5.4" fill="#2e1d12"/>
+      <ellipse class="eye" cx="61.5" cy="41" rx="5" ry="5.4" fill="#2e1d12"/>
+      <circle cx="40" cy="39.2" r="1.7" fill="#fff"/>
+      <circle cx="63" cy="39.2" r="1.7" fill="#fff"/>
+      <ellipse cx="50" cy="50" rx="5.2" ry="3.9" fill="#3d2817"/>
+      <ellipse cx="49" cy="49.2" rx="1.2" ry=".8" fill="#6b5546"/>
+      <path d="M50 53.5 L50 56.5 M50 56.5 Q45.5 60 43 56.5 M50 56.5 Q54.5 60 57 56.5" stroke="#3d2817" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+      <circle cx="29" cy="53" r="6" fill="#e88b8b" opacity=".45"/>
+      <circle cx="71" cy="53" r="6" fill="#e88b8b" opacity=".45"/>
     </svg>
   </button>
 </div>
 
-<dialog data-page-node-id="J6emR0hPqHTP37tdfj9XFu" id="editDlg">
-  <div data-page-node-id="518CHshoCPahUOD5qWfT5y" class="sheet">
-    <div data-page-node-id="PuiAApfelgbxa4SlKcK0qr" class="handle"></div>
-    <h3 data-page-node-id="Lvqq5sjmJEx9F9ZCQ6W9Um"><!--pnid:GeYxhRAOcIsGxHbjI1yMh8-->编辑任务</h3>
-    <div data-page-node-id="zRCchHXOKae71j9z33UYUr" class="field"><label data-page-node-id="TdpNUenjLdvjPvzkL0BuVh"><!--pnid:RWiz1Ar6S2lvShFJDXKslW-->标题</label><input data-page-node-id="l2XJqW9Ovs6zzFqSXS9HUh" id="e-title" type="text"></div>
-    <div data-page-node-id="TF7qIq1ad4iQJjw4oiIgyK" class="field"><label data-page-node-id="HX7ecV0XwrEVRlQww0P92P"><!--pnid:GvKgcBe4rN1mb72ydZxvcT-->截止时间</label><input data-page-node-id="8ZLPwvfd6JC9O9zQX8Zy0M" id="e-due" type="datetime-local"></div>
-    <div data-page-node-id="4RCwgHvRruUw74jxEVBeI1" class="field"><label data-page-node-id="0i0WIcjbhc9JunC5S8CwPc"><!--pnid:STOK5DmMKdk5WztAl8ITWy-->地点（选填）</label><input data-page-node-id="9xS58Zwpmp39OOImNMFS2z" id="e-place" placeholder="如：三教 305" type="text"></div>
-    <div data-page-node-id="J9Q6JWC7mUrCiyCmNVFElk" class="field"><label data-page-node-id="m5Asy05wWOj2BN8l1VsveI"><!--pnid:9JWRXnQ6wqTo1IvD7jFjsg-->分类</label><div data-page-node-id="6ETLzVZNilEyI3cWVP0WDz" class="cats" id="e-cats"></div></div>
-    <div data-page-node-id="IVcaEYZghr7lw5Ak10dYTa" class="field" id="e-raw-wrap"><label data-page-node-id="bYj1gOF3AIICmiAEv56BbK"><!--pnid:KYWk2aPXj28kVjw2pfISEt-->原始消息</label><div data-page-node-id="RuDoKcvPjItdNeFMjRTAFs" class="raw-box" id="e-raw"></div></div>
-    <div data-page-node-id="qa6uubPeRx3reQaDbYEOLu" class="dlg-actions">
-      <button data-page-node-id="08boDcqWUtvZmITMPfXyzE" class="btn danger" id="e-del"><!--pnid:JhF9qYXVMO9H9DzI9IAvLl-->删除</button>
-      <button data-page-node-id="XAdnoB3XNXl8wVlzjb3hr1" class="btn ghost" id="e-cancel"><!--pnid:0OJfK3SvTGTAsXW3otCabj-->取消</button>
-      <button data-page-node-id="5QvJyFGvgbI7VXuly0qDBX" class="btn primary" id="e-save"><!--pnid:vnfJX5AOmG0uMd0lKzMF7d-->保存</button>
+<dialog id="editDlg">
+  <div class="sheet">
+    <div class="handle"></div>
+    <h3>编辑任务</h3>
+    <div class="field"><label>标题</label><input type="text" id="e-title"></div>
+    <div class="field"><label>截止时间</label><input type="datetime-local" id="e-due"></div>
+    <div class="field"><label>地点（选填）</label><input type="text" id="e-place" placeholder="如：三教 305"></div>
+    <div class="field"><label>分类</label><div class="cats" id="e-cats"></div></div>
+    <div class="field" id="e-raw-wrap"><label>原始消息</label><div class="raw-box" id="e-raw"></div></div>
+    <div class="dlg-actions">
+      <button class="btn danger" id="e-del">删除</button>
+      <button class="btn ghost" id="e-cancel">取消</button>
+      <button class="btn primary" id="e-save">保存</button>
     </div>
   </div>
 </dialog>
 
-<dialog data-page-node-id="JLzxUAEnR577mAaiRukWwu" id="menuDlg">
-  <div data-page-node-id="KnFkg8oDxsWJN7frOa8ESN" class="sheet menu">
-    <div data-page-node-id="vyC8QwD0SvmziX9RML6JOf" class="handle"></div>
-    <div data-page-node-id="gFKaSMRow9yGgQv8CBf06R" class="mtitle"><!--pnid:m0pagZkGILo6nIzyHGfCMI-->导出与数据</div>
-    <button data-page-node-id="xMoZgbC6XU1F9ikGgebA13" data-act="ics"><!--pnid:fMjUk6OrHSBsGdFJ5s05RA-->📅 导出到手机日历（含提前提醒）</button>
-    <button data-page-node-id="9sJMcOhLaa2g4GAxoh3GaJ" data-act="backup"><!--pnid:2Tn2nXRrPWNG23AC4pkLnS-->💾 导出数据备份</button>
-    <button data-page-node-id="fSIL15aaWkl7rvc5mX7oVL" data-act="restore"><!--pnid:WgcwMslInfR25jnW0D6lS8-->📥 从备份恢复</button>
-    <div data-page-node-id="vA649bAdHIZO1KpJc4sPIM" class="mtitle"><!--pnid:0JRSEKzxijLYAcmJC3KYu8-->小熊</div>
-    <button data-page-node-id="viJac3tD06PLOJyNOKoo4O" data-act="syncBear"><!--pnid:T1I0EdDZQzz2HgOhUzTNkv-->📲 同步到主屏幕（Scriptable 小组件）</button>
-    <button data-page-node-id="rdE5CrRnVJIDN2EKOp5XnA" data-act="bear"><!--pnid:9lLZKjg5msouAibVH3HeMd-->🐻 页面里的小熊：开</button>
-    <div data-page-node-id="SNdf1rQQ64LdFyn0CAjGBs" class="mtitle"><!--pnid:yqFcSI0FTcTHMmhEqli43D-->管理</div>
-    <button data-page-node-id="beu8S0Q1C8FNzT4dPpZd0m" data-act="clearDone"><!--pnid:Sy39HaMseMxUYECmRmfc8O-->🧹 清除已完成</button>
-    <button data-page-node-id="3aMI37yUEm2mPiyUF7DJ27" class="danger" data-act="close"><!--pnid:1B14Vqybwvi46nlepFmXZQ-->关闭</button>
+<dialog id="menuDlg">
+  <div class="sheet menu">
+    <div class="handle"></div>
+    <div class="mtitle">导出与数据</div>
+    <button data-act="ics">📅 导出到手机日历（含提前提醒）</button>
+    <button data-act="backup">💾 导出数据备份</button>
+    <button data-act="restore">📥 从备份恢复</button>
+    <div class="mtitle">小熊</div>
+    <button data-act="gh">☁️ 自动同步到主屏幕：关</button>
+    <button data-act="ghCfg">⚙️ 云同步设置</button>
+    <button data-act="syncBear">📲 手动同步一次（Scriptable 小组件）</button>
+    <button data-act="bear">🐻 页面里的小熊：开</button>
+    <div class="mtitle">管理</div>
+    <button data-act="clearDone">🧹 清除已完成</button>
+    <button data-act="prune">🗑️ 清理过期任务</button>
+    <div class="mnote">截止时间过去 5 天后自动清除，不用手动点</div>
+    <button data-act="close" class="danger">关闭</button>
   </div>
 </dialog>
 
-<input data-page-node-id="P552H4QQVWSomwjD774nRR" accept=".json" id="fileInput" type="file" style="display:none">
-<div data-page-node-id="QmIEhNSLJE414EGxb2UNIU" class="toast" id="toast"></div>
+<dialog id="ghDlg">
+  <div class="sheet">
+    <div class="handle"></div>
+    <h3>云同步</h3>
+    <p class="gh-tip">填一个 GitHub 令牌后，每次改动都会自动推到主屏幕小熊，不用再点同步。<br>令牌建议只授权<b>这一个仓库</b>的 <b>Contents: Read and write</b>。</p>
+    <div class="field"><label>令牌（Token）</label><input type="password" id="gh-token" placeholder="github_pat_… 或 ghp_…" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"></div>
+    <div class="gh-row">
+      <div class="field"><label>用户名</label><input type="text" id="gh-owner" autocapitalize="off" autocorrect="off" spellcheck="false"></div>
+      <div class="field"><label>仓库名</label><input type="text" id="gh-repo" autocapitalize="off" autocorrect="off" spellcheck="false"></div>
+    </div>
+    <div class="gh-tip" id="gh-msg"></div>
+    <div class="dlg-actions">
+      <button class="btn ghost" id="gh-cancel">取消</button>
+      <button class="btn ghost" id="gh-test">测试</button>
+      <button class="btn primary" id="gh-save">保存并开启</button>
+    </div>
+  </div>
+</dialog>
 
-<script data-page-node-id="mg4OU0bD1EQRHZYuA9rlEq" data-pnid-children="9xNKsbMGmk82Uy1R5s8xym">
+<input type="file" id="fileInput" accept=".json" style="display:none">
+<div class="toast" id="toast"></div>
+
+<script>
 (function(){
 "use strict";
 
@@ -322,6 +359,7 @@ const CATS = [
   {id:'other',  label:'其他', color:'#868e96', kw:[]}
 ];
 const catOf = id => CATS.find(c=>c.id===id) || CATS[4];
+const KEEP_DAYS = 5;                    // deadline 过去这么多天后，任务自动清除
 
 /* ================= 工具 ================= */
 const pad = n => String(n).padStart(2,'0');
@@ -565,6 +603,18 @@ function load(){
 function save(){
   try{ localStorage.setItem(STORE, JSON.stringify({tasks, v:1})); }
   catch(e){ toast('保存失败，可能是存储空间满了'); }
+  schedulePush();
+}
+
+/* ---- 过期自动清除：deadline 过去 KEEP_DAYS 天后不再保留 ---- */
+const KEEP_MS = KEEP_DAYS * 864e5;
+function pruneOld(){
+  const cut = Date.now() - KEEP_MS;
+  const before = tasks.length;
+  tasks = tasks.filter(function(t){ return !(t.due && t.due < cut); });
+  const n = before - tasks.length;
+  if(n > 0) save();   // save 里会顺带把删除结果推到云端
+  return n;
 }
 
 /* ================= 渲染 ================= */
@@ -884,6 +934,139 @@ function b64utf8(str){
   return btoa(s);
 }
 
+/* ================= 云同步（GitHub 当中有转站） ================= */
+const GH_KEY = 'ddl_gh_v1';
+let gh = null;
+let pushTimer = null, pushing = false, pushAgain = false;
+
+function loadGH(){
+  try{ gh = JSON.parse(localStorage.getItem(GH_KEY) || 'null'); }catch(e){ gh = null; }
+  if(!gh || typeof gh !== 'object') gh = { token:'', owner:'', repo:'', on:false };
+  if(!gh.owner){
+    const m = /^([^.]+)\.github\.io$/i.exec(location.hostname);
+    if(m) gh.owner = m[1];
+  }
+  if(!gh.repo){
+    const seg = location.pathname.split('/').filter(Boolean);
+    if(seg.length) gh.repo = seg[0].replace(/\.html$/i,'');
+  }
+}
+
+function saveGH(){
+  try{ localStorage.setItem(GH_KEY, JSON.stringify(gh)); }catch(e){}
+}
+
+function ghReady(){ return !!(gh && gh.on && gh.token && gh.owner && gh.repo); }
+
+function buildPayload(){
+  return tasks.map(t=>[
+    t.id || '', t.title || '', t.due || Date.now(),
+    t.cat || 'course', t.place || '', t.done ? 1 : 0
+  ]);
+}
+
+function setSyncBar(state, msg){
+  const bar = $('#syncBar'), txt = $('#syncTxt'), btn = $('#syncRetry');
+  if(!bar) return;
+  if(state === 'ok'){ bar.classList.remove('show','err'); return; }
+  bar.classList.add('show');
+  if(state === 'syncing'){
+    bar.classList.remove('err');
+    txt.textContent = '正在同步到主屏幕…';
+    btn.style.display = 'none';
+  } else {
+    bar.classList.add('err');
+    txt.textContent = msg || '同步失败';
+    btn.style.display = '';
+  }
+}
+
+async function ghFetch(path, opt){
+  const headers = Object.assign({
+    'Authorization': 'Bearer ' + gh.token,
+    'Accept': 'application/vnd.github+json'
+  }, (opt && opt.headers) || {});
+  return fetch('https://api.github.com/repos/' + gh.owner + '/' + gh.repo + path,
+    Object.assign({}, opt, { headers, cache: 'no-store' }));
+}
+
+async function ghPush(){
+  const api = '/contents/data.json';
+  let sha = null;
+  const g = await ghFetch(api + '?t=' + Date.now());
+  if(g.ok){
+    sha = (await g.json()).sha;
+  } else if(g.status !== 404){
+    if(g.status === 401) throw new Error('令牌无效或已过期');
+    if(g.status === 403) throw new Error('令牌没有写入权限');
+    throw new Error('读取失败 ' + g.status);
+  }
+
+  const body = {
+    message: 'sync ' + new Date().toLocaleString('zh-CN', { hour12:false }),
+    content: b64utf8(JSON.stringify(buildPayload()))
+  };
+  if(sha) body.sha = sha;
+
+  const p = await ghFetch(api, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+
+  if(!p.ok){
+    if(p.status === 401) throw new Error('令牌无效或已过期');
+    if(p.status === 403) throw new Error('令牌权限不足');
+    if(p.status === 404) throw new Error('找不到仓库，检查用户名和仓库名');
+    const t = await p.text();
+    throw new Error('写入失败 ' + p.status + ' ' + t.slice(0, 70));
+  }
+}
+
+function schedulePush(){
+  if(!ghReady()) return;
+  clearTimeout(pushTimer);
+  pushTimer = setTimeout(pushNow, 1200);
+}
+
+async function pushNow(){
+  if(!ghReady()) return;
+  if(pushing){ pushAgain = true; return; }
+  pushing = true;
+  setSyncBar('syncing');
+  try{
+    await ghPush();
+    setSyncBar('ok');
+  }catch(e){
+    setSyncBar('err', '没同步成功：' + e.message);
+  }finally{
+    pushing = false;
+    if(pushAgain){ pushAgain = false; pushNow(); }
+  }
+}
+
+function updateGHLabels(){
+  const b = document.querySelector('[data-act="gh"]');
+  if(b) b.textContent = ghReady() ? '☁️ 自动同步到主屏幕：开' : '☁️ 自动同步到主屏幕：关';
+}
+
+function openGH(){
+  $('#gh-token').value = gh.token || '';
+  $('#gh-owner').value = gh.owner || '';
+  $('#gh-repo').value = gh.repo || '';
+  $('#gh-msg').textContent = '';
+  $('#ghDlg').showModal();
+}
+
+function toggleGH(){
+  if(!gh.token || !gh.owner || !gh.repo){ openGH(); return; }
+  gh.on = !gh.on;
+  saveGH();
+  updateGHLabels();
+  if(gh.on){ toast('已开启，改完自动同步'); pushNow(); }
+  else toast('已关闭自动同步');
+}
+
 function syncToBear(){
   if(!tasks.length){ toast('先记一件事再同步'); return; }
 
@@ -942,6 +1125,8 @@ menuDlg.addEventListener('click', e=>{
   if(act === 'backup') backup();
   if(act === 'restore') $('#fileInput').click();
   if(act === 'syncBear') syncToBear();
+  if(act === 'gh') setTimeout(toggleGH, 30);
+  if(act === 'ghCfg') setTimeout(openGH, 30);
   if(act === 'bear'){
     bearOn = !bearOn;
     localStorage.setItem(BEAR_KEY, bearOn ? '1' : '0');
@@ -954,7 +1139,60 @@ menuDlg.addEventListener('click', e=>{
     tasks = tasks.filter(t=>!t.done);
     save(); render(); toast(`已清除 ${n} 条`);
   }
+  if(act === 'prune'){
+    const n = pruneOld();
+    render();
+    toast(n > 0 ? `已清理 ${n} 条过期任务` : `没有超过 ${KEEP_DAYS} 天的任务`);
+  }
 });
+
+/* ---------- 云同步设置弹窗 ---------- */
+const ghDlg = $('#ghDlg');
+$('#gh-cancel').addEventListener('click', ()=>ghDlg.close());
+ghDlg.addEventListener('click', e=>{ if(e.target === ghDlg) ghDlg.close(); });
+
+$('#gh-test').addEventListener('click', async ()=>{
+  const t = $('#gh-token').value.trim();
+  const o = $('#gh-owner').value.trim();
+  const r = $('#gh-repo').value.trim();
+  const box = $('#gh-msg');
+  if(!t || !o || !r){ box.textContent = '令牌、用户名、仓库名都要填'; return; }
+  box.textContent = '正在测试…';
+  try{
+    const res = await fetch('https://api.github.com/repos/' + o + '/' + r, {
+      headers: { 'Authorization': 'Bearer ' + t, 'Accept': 'application/vnd.github+json' },
+      cache: 'no-store'
+    });
+    if(res.status === 200){
+      const j = await res.json();
+      box.textContent = '✅ 连接成功：「' + j.full_name + '」，' + (j.private ? '私有' : '公开') + '仓库';
+    } else if(res.status === 401){
+      box.textContent = '❌ 令牌无效或已过期，重新生成一个';
+    } else if(res.status === 404){
+      box.textContent = '❌ 找不到这个仓库，检查用户名和仓库名拼写';
+    } else {
+      box.textContent = '❌ 失败 HTTP ' + res.status;
+    }
+  }catch(err){
+    box.textContent = '❌ 网络错误，检查是否联网';
+  }
+});
+
+$('#gh-save').addEventListener('click', ()=>{
+  const t = $('#gh-token').value.trim();
+  const o = $('#gh-owner').value.trim();
+  const r = $('#gh-repo').value.trim();
+  if(!t || !o || !r){ $('#gh-msg').textContent = '令牌、用户名、仓库名都要填'; return; }
+  gh.token = t; gh.owner = o; gh.repo = r; gh.on = true;
+  saveGH();
+  ghDlg.close();
+  updateGHLabels();
+  toast('已开启，改完自动同步');
+  setTimeout(pushNow, 200);
+});
+
+$('#syncRetry').addEventListener('click', ()=>pushNow());
+window.addEventListener('online', ()=>{ if(ghReady()) setTimeout(pushNow, 800); });
 
 /* ================= 导出 ================= */
 function download(content, filename, type){
@@ -1019,8 +1257,12 @@ $('#fileInput').addEventListener('change', e=>{
       const map = new Map(tasks.map(t=>[t.id,t]));
       d.tasks.forEach(t=>{ if(t && t.id && t.title) map.set(t.id, t); });
       tasks = [...map.values()];
+      // 备份里可能带着很久以前的任务，恢复时同样按规则清掉
+      const cut = Date.now() - KEEP_MS;
+      const dropped = tasks.filter(t=>t.due && t.due < cut).length;
+      if(dropped) tasks = tasks.filter(t=>!(t.due && t.due < cut));
       save(); render();
-      toast(`已恢复，共 ${tasks.length} 条`);
+      toast(dropped ? `已恢复 ${tasks.length} 条，跳过 ${dropped} 条过期` : `已恢复，共 ${tasks.length} 条`);
     }catch(err){ toast('文件格式不对，恢复失败'); }
   };
   r.readAsText(f);
@@ -1196,10 +1438,14 @@ bearBody.addEventListener('click', function(){
 
 /* ================= 启动 ================= */
 load();
+loadGH();
+const nCleaned = pruneOld();
 renderCatbar();
 updateSend();
+updateGHLabels();
 render();
 placeBear();
+if(nCleaned > 0) setTimeout(function(){ toast(`已自动清理 ${nCleaned} 条过期任务`); }, 600);
 if(window.ResizeObserver){
   new ResizeObserver(placeBear).observe(document.querySelector('.composer'));
 }
@@ -1208,11 +1454,21 @@ window.addEventListener('resize', placeBear);
 // 小熊：打开 1.5 秒后检查一次（补上错过的时段），之后每分钟检查
 setTimeout(checkBear, 1500);
 setInterval(checkBear, 60000);
-setInterval(render, 60000);
 
-// 每次回到页面前台，刷新倒计时并检查提醒
+// 每分钟刷新一次界面，顺便清理过期任务
+setInterval(function(){
+  const n = pruneOld();
+  render();
+  if(n > 0) toast(`已自动清理 ${n} 条过期任务`);
+}, 60000);
+
+// 每次回到页面前台，清理过期任务、刷新倒计时并检查提醒
 document.addEventListener('visibilitychange', function(){
-  if(!document.hidden){ render(); checkBear(); }
+  if(document.hidden) return;
+  const n = pruneOld();
+  render();
+  if(n > 0) toast(`已自动清理 ${n} 条过期任务`);
+  checkBear();
 });
 
 // 注册 Service Worker（仅在 http/https 下生效，本地双击打开会静默跳过）
