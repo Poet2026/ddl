@@ -234,6 +234,11 @@ input[type=file]{display:none}
     <button id="syncRetry">重试</button>
   </div>
 
+  <div class="syncbar" id="setupTip">
+    <span>主屏幕小熊还没接通，它看不到这里的任务</span>
+    <button id="setupGo">去设置</button>
+  </div>
+
   <main id="main"></main>
 
   <div class="composer">
@@ -660,6 +665,7 @@ function updateBadge(n){
 
 function render(){
   const main = $('#main');
+  updateSetupTip();
   const active = tasks.filter(t=>!t.done);
   const done = tasks.filter(t=>t.done);
 
@@ -920,7 +926,8 @@ $('#e-save').addEventListener('click', ()=>{
 });
 $('#e-del').addEventListener('click', ()=>{
   tasks = tasks.filter(x=>x.id !== editing.id);
-  save(); render(); editDlg.close(); toast('已删除');
+  save(); render(); editDlg.close();
+  toast(ghReady() ? '已删除，小熊几分钟内跟上' : '已删除');
 });
 editDlg.addEventListener('click', e=>{ if(e.target === editDlg) editDlg.close(); });
 
@@ -1107,7 +1114,16 @@ async function pullCloud(){
 function updateGHLabels(){
   const b = document.querySelector('[data-act="gh"]');
   if(b) b.textContent = ghReady() ? '☁️ 自动同步到主屏幕：开' : '☁️ 自动同步到主屏幕：关';
+  updateSetupTip();
 }
+
+/* 没接通云同步时，在列表上方提醒一句，否则用户会以为小熊坏了 */
+function updateSetupTip(){
+  const el = $('#setupTip');
+  if(!el) return;
+  el.classList.toggle('show', !ghReady() && tasks.length > 0);
+}
+$('#setupGo').addEventListener('click', openGH);
 
 function openGH(){
   $('#gh-token').value = gh.token || '';
@@ -1126,8 +1142,25 @@ function toggleGH(){
   else toast('已关闭自动同步');
 }
 
-function syncToBear(){
+/* base64url：把 + / = 换成 URL 里安全的字符，避免链接参数被系统吃掉 */
+function b64url(str){
+  return b64utf8(str).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+}
+
+async function syncToBear(){
   if(!tasks.length){ toast('先记一件事再同步'); return; }
+
+  // 已经配好云同步：直接推云端，小熊自己去取，不必再跳 App
+  if(ghReady()){
+    toast('正在推送到云端…');
+    try{
+      await ghPush();
+      toast('已推送到云端，小熊几分钟内会刷新');
+    }catch(e){
+      toast('推送失败：' + e.message);
+    }
+    return;
+  }
 
   const payload = tasks.map(t=>[
     t.id || '',
@@ -1138,7 +1171,14 @@ function syncToBear(){
     t.done ? 1 : 0
   ]);
 
-  const b64 = b64utf8(JSON.stringify(payload));
+  const b64 = b64url(JSON.stringify(payload));
+
+  // 同时塞一份到剪贴板，链接参数被截断时脚本还能从剪贴板读
+  try{
+    const pr = navigator.clipboard && navigator.clipboard.writeText(b64);
+    if(pr && pr.catch) pr.catch(function(){});
+  }catch(e){}
+
   const url = 'scriptable:///run/' + encodeURIComponent('DDL小熊') + '?d=' + encodeURIComponent(b64);
 
   if(url.length > 12000){
@@ -1522,9 +1562,12 @@ setInterval(function(){
   if(n > 0) toast(`已自动清理 ${n} 条过期任务`);
 }, 60000);
 
-// 每次回到页面前台，清理过期任务、刷新倒计时并检查提醒
+// 每次切走时先把改动推完，避免「改完就关掉，云端还是旧的」
 document.addEventListener('visibilitychange', function(){
-  if(document.hidden) return;
+  if(document.hidden){
+    if(ghReady()) pushNow();
+    return;
+  }
   const n = pruneOld();
   render();
   if(n > 0) toast(`已自动清理 ${n} 条过期任务`);
