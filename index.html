@@ -59,6 +59,44 @@ h1{margin:0;font-size:21px;font-weight:700;letter-spacing:-.3px}
 .stat.hot b{color:var(--red)}
 .stat.hot{border-color:#ffdede;background:var(--red-bg)}
 
+/* ---------- 两个页签 ---------- */
+.tabs{flex:none;display:flex;gap:5px;padding:2px 18px 9px}
+.tabs button{flex:1;padding:9px 0;border-radius:11px;font-size:13.5px;font-weight:600;color:var(--sub);background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;gap:5px;transition:.16s}
+.tabs button b{font-size:11px;font-weight:700;background:#eef0f4;color:var(--muted);border-radius:6px;padding:1px 5px;font-variant-numeric:tabular-nums}
+.tabs button.on{background:var(--ink);color:#fff;border-color:var(--ink);box-shadow:0 2px 8px rgba(20,23,29,.16)}
+.tabs button.on b{background:rgba(255,255,255,.22);color:#fff}
+
+/* ---------- 计划页 ---------- */
+#planMain{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:4px 18px 122px;display:none}
+.app[data-view=plan] #planMain{display:block}
+.app[data-view=plan] #main{display:none}
+.app[data-view=plan] .composer{display:none}
+.app[data-view=plan] ~ .bear-float{display:none}
+.app[data-view=plan] #statsTask{display:none}
+.app[data-view=plan] #statsPlan{display:flex}
+#statsPlan{display:none}
+
+.pnew-wrap{display:none;position:absolute;left:0;right:0;bottom:0;padding:26px 18px calc(16px + env(safe-area-inset-bottom));background:linear-gradient(to top,var(--bg) 58%,rgba(244,245,247,0));z-index:6;pointer-events:none}
+.app[data-view=plan] .pnew-wrap{display:block}
+.pnew{display:block;width:100%;padding:14px;border-radius:14px;background:var(--accent);color:#fff;font-size:15px;font-weight:600;box-shadow:0 6px 20px rgba(66,99,235,.3);pointer-events:auto}
+.pnew:active{transform:scale(.985)}
+
+.plead{display:flex;align-items:center;gap:7px;margin:2px 0 13px;font-size:12.5px;color:var(--sub);line-height:1.5}
+.plead .dot{width:6px;height:6px;border-radius:50%;flex:none;background:#b9a48c}
+.plead .dot.warn{background:var(--orange)}
+
+/* 推进记录 */
+.hist{margin-top:30px}
+.hist .hday{margin-top:15px}
+.hday-t{font-size:11.5px;color:var(--muted);font-weight:600;letter-spacing:.3px;display:flex;align-items:center;gap:6px;margin-bottom:7px}
+.hday-t i{width:6px;height:6px;border-radius:50%;background:#cfbda8;display:block}
+.hday-t .n{margin-left:auto;font-weight:400;color:#c3b5a6}
+.hitem{display:flex;gap:9px;align-items:baseline;padding:9px 12px;background:#fff;border:1px solid var(--line);border-radius:11px;margin-bottom:6px;font-size:12.5px;line-height:1.45}
+.hitem .hk{flex:none;color:var(--muted);font-variant-numeric:tabular-nums;font-size:11.5px;width:36px}
+.hitem .hp{flex:none;color:#8C7A68;font-weight:600;max-width:40%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hitem .hs{flex:1;min-width:0;color:var(--ink);word-break:break-word}
+.hmore{width:100%;padding:10px;border-radius:10px;border:1px dashed #d9d3c9;color:#9a8a76;font-size:12px;margin-top:4px}
+
 /* ---------- list ---------- */
 main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:6px 18px 104px}
 .group{margin-top:14px}
@@ -89,6 +127,67 @@ main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:6px 18px 10
 .t-meta .sep{opacity:.45}
 .t-place{display:flex;align-items:center;gap:4px;margin-top:3px;font-size:12px;color:var(--sub)}
 .t-place svg{flex:none;opacity:.55}
+/* 拆成小步：进度条 + 下一步 */
+.prog{display:flex;gap:3px;margin-top:7px}
+.prog i{height:3px;flex:1;border-radius:2px;background:#e6e9ee}
+.prog i.on{background:var(--accent)}
+.t-sub{display:flex;align-items:center;gap:7px;margin-top:7px;padding:6px 8px;background:#f7f8fa;border-radius:9px;font-size:12px;color:var(--sub);font-variant-numeric:tabular-nums}
+.t-sub .st{flex:none;font-weight:700;color:var(--accent);font-size:11px}
+.t-sub .step-main{flex:1;min-width:0}
+.t-sub .step-t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink);font-size:12.5px}
+.t-sub .step-d{color:var(--muted);font-size:11px;margin-top:1px}
+.t-sub .sbtn{flex:none;width:22px;height:22px;border-radius:50%;background:#fff;border:1.5px solid var(--line);color:var(--muted);font-size:11px;display:flex;align-items:center;justify-content:center;touch-action:manipulation}
+.t-sub .sbtn:active{background:var(--accent);border-color:var(--accent);color:#fff}
+.task.done .t-sub{opacity:.5}
+
+/* ---------- 长期计划 ---------- */
+.pgroup{margin-top:22px}
+.pgroup .gtitle{color:#8C7A68}
+.pgroup .gtitle .cnt{color:#c3b5a6}
+.pgroup .gtitle .hintx{margin-left:auto;font-size:10.5px;font-weight:400;color:#c9bdaf;letter-spacing:0}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 14px 12px;margin-bottom:9px;position:relative;overflow:hidden;box-shadow:0 1px 2px rgba(20,23,29,.035)}
+.plan::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:#cfbda8}
+.plan.lag::before{background:var(--orange)}
+.plan.paused::before{background:#cfd4dc}
+.plan.paused{background:#fafbfc}
+.plan.done{opacity:.5}
+.plan.done .p-title{text-decoration:line-through;text-decoration-thickness:1.5px;color:var(--muted)}
+.plan.pop{animation:pop .26s cubic-bezier(.2,.8,.3,1)}
+.p-top{display:flex;align-items:baseline;gap:9px}
+.p-title{flex:1;min-width:0;font-size:15px;font-weight:600;line-height:1.35;word-break:break-word;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.p-no{flex:none;font-size:12px;font-weight:700;color:#8C7A68;font-variant-numeric:tabular-nums}
+.p-bar{height:5px;border-radius:3px;background:#f0ebe4;margin-top:9px;overflow:hidden}
+.p-bar i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,#2f9e44,#69db7c);transition:width .4s cubic-bezier(.2,.8,.3,1)}
+.p-meta{display:flex;gap:7px;margin-top:7px;font-size:11.5px;color:var(--muted);flex-wrap:wrap;align-items:center}
+.p-meta .warn{color:var(--orange);font-weight:600}
+.p-meta .ok{color:var(--green);font-weight:600}
+.p-next{margin-top:9px;padding:7px 9px;background:#fbf7f2;border-radius:9px;font-size:12.5px;color:var(--sub);display:flex;gap:7px;align-items:center}
+.p-next .k{flex:none;font-size:10.5px;font-weight:700;color:#b9a48c;letter-spacing:.3px}
+.p-next b{flex:1;min-width:0;color:var(--ink);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.p-acts{display:flex;gap:8px;margin-top:9px}
+.p-btn{padding:8px 12px;border-radius:9px;background:#f1f3f5;color:var(--sub);font-size:12.5px;font-weight:600;text-align:center;transition:.14s}
+.p-btn:active{transform:scale(.97)}
+.p-btn.go{background:#eefaf1;color:var(--green)}
+.p-btn.pause{background:transparent;color:var(--muted);padding-left:4px;padding-right:4px}
+.pv{margin-top:9px;padding:9px 10px;border-radius:10px;background:#fff8e1;border:1px solid #f5e3b3}
+.pv-t{font-size:12px;color:#8a6d1f;line-height:1.55}
+.pv-btns{display:flex;gap:6px;margin-top:8px}
+.pv-btns button{flex:1;padding:7px 3px;border-radius:8px;background:#fff;border:1px solid #f0dcae;font-size:11.5px;font-weight:600;color:#8a6d1f}
+.pv-btns button:active{background:#fffdf5}
+
+/* 编辑弹窗：任务 / 计划 切换 */
+.kinds{display:flex;gap:6px;margin-bottom:16px;background:#f1f3f5;padding:4px;border-radius:11px}
+.kinds button{flex:1;padding:9px;border-radius:8px;font-size:13.5px;font-weight:600;color:var(--sub);transition:.14s}
+.kinds button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.09)}
+.planrow{display:flex;gap:10px}
+.planrow .field{flex:1;min-width:0}
+.planrow input{min-width:0}
+.num{display:flex;align-items:center;gap:9px;height:42px}
+.num button{width:34px;height:34px;border-radius:9px;background:#f1f3f5;color:var(--sub);font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center}
+.num button:active{background:#e6e9ee}
+.num b{min-width:20px;text-align:center;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+.addplan{flex:none;margin-left:auto;font-size:11.5px;font-weight:600;color:#a08d78;background:#faf6f1;border:1px solid #eee4d8;padding:3px 9px;border-radius:8px}
+.addplan:active{background:#f3ece3}
 
 .t-right{flex:none;text-align:right;margin-top:1px}
 .badge{display:inline-block;font-size:11.5px;font-weight:600;padding:3px 8px;border-radius:7px;white-space:nowrap;font-variant-numeric:tabular-nums}
@@ -134,8 +233,15 @@ dialog::backdrop{background:rgba(16,18,24,.34);backdrop-filter:blur(2px)}
 .sheet h3{margin:0 0 16px;font-size:16px;font-weight:700}
 .field{margin-bottom:14px}
 .field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:500}
-.field input[type=text],.field input[type=password],.field input[type=datetime-local]{width:100%;border:1px solid var(--line);background:#f7f8fa;border-radius:10px;padding:10px 12px;font-size:16px;outline:none}
+.field input[type=text],.field input[type=password],.field input[type=datetime-local],.field input[type=date],.field input[type=time]{width:100%;border:1px solid var(--line);background:#f7f8fa;border-radius:10px;padding:10px 12px;font-size:16px;outline:none}
+/* 填了收尾日，步数就由配速算，控件变成只读 */
+.num.auto button{opacity:.35;pointer-events:none}
+.num.auto b{color:var(--accent)}
 .field input:focus{background:#fff;border-color:#c3cdf5}
+.field textarea{width:100%;border:1px solid var(--line);background:#f7f8fa;border-radius:10px;padding:10px 12px;font-size:16px;line-height:1.6;outline:none;resize:vertical;min-height:84px;font-family:inherit}
+.field textarea:focus{background:#fff;border-color:#c3cdf5}
+.subs-tip{font-size:11.5px;color:var(--muted);margin-top:5px;line-height:1.6}
+.subs-prev{font-size:11.5px;color:var(--accent);margin-top:4px;line-height:1.6;font-variant-numeric:tabular-nums}
 .raw-box{background:#f7f8fa;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:12.5px;color:var(--sub);line-height:1.65;max-height:96px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;-webkit-user-select:text;user-select:text}
 .cats{display:flex;gap:7px;flex-wrap:wrap}
 .cats .chip{cursor:pointer}
@@ -200,7 +306,7 @@ dialog::backdrop{background:rgba(16,18,24,.34);backdrop-filter:blur(2px)}
 .say-tag{font-size:11px;font-weight:700;color:var(--orange);letter-spacing:.2px;margin-bottom:3px}
 .say-tag.over{color:var(--red)}
 .say-text{font-size:13.5px;line-height:1.45;font-weight:600;color:var(--ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word}
-.say-more{font-size:11.5px;color:var(--muted);margin-top:4px}
+.say-more{font-size:11.5px;color:var(--muted);margin-top:4px;word-break:keep-all;line-height:1.5}
 .say-actions{display:flex;gap:6px;margin-top:9px}
 .say-btn{flex:1;font-size:12.5px;font-weight:600;padding:7px 0;border-radius:9px;text-align:center;transition:.15s}
 .say-btn:active{transform:scale(.96)}
@@ -215,17 +321,22 @@ input[type=file]{display:none}
   <header>
     <div class="hrow">
       <div>
-        <h1>DDL 收件箱</h1>
-        <p class="tagline">微信里的碎片，倒进这里就不会忘</p>
+        <h1 id="hTitle">DDL 收件箱</h1>
+        <p class="tagline" id="hTag">微信里的碎片，倒进这里就不会忘</p>
       </div>
       <button class="icon-btn" id="menuBtn" aria-label="更多">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>
       </button>
     </div>
-    <div class="stats">
+    <div class="stats" id="statsTask">
       <div class="stat"><b id="s-todo">0</b><span>待办</span></div>
       <div class="stat"><b id="s-today">0</b><span>今天</span></div>
       <div class="stat hot" id="stat-over"><b id="s-over">0</b><span>逾期</span></div>
+    </div>
+    <div class="stats" id="statsPlan">
+      <div class="stat"><b id="p-run">0</b><span>在追</span></div>
+      <div class="stat"><b id="p-week">0</b><span>本周推进</span></div>
+      <div class="stat hot" id="stat-lag"><b id="p-lag">0</b><span>落后</span></div>
     </div>
   </header>
 
@@ -239,10 +350,22 @@ input[type=file]{display:none}
     <button id="setupGo">去设置</button>
   </div>
 
+  <nav class="tabs" id="tabs">
+    <button data-view="task" class="on">待办<b id="tabN-task">0</b></button>
+    <button data-view="plan">长期计划<b id="tabN-plan">0</b></button>
+  </nav>
+
   <main id="main"></main>
 
+  <section id="planMain"></section>
+
+  <div class="pnew-wrap"><button class="pnew" id="pNew">＋ 新建长期计划</button></div>
+
   <div class="composer">
-    <p class="hint" id="hint">粘贴或输入一句话，自动识别截止时间</p>
+    <div class="hintrow" style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
+      <p class="hint" id="hint" style="margin:0;flex:1;min-width:0">粘贴或输入一句话，自动识别截止时间</p>
+      <button class="addplan" id="addPlan">＋ 长期计划</button>
+    </div>
     <div class="crow">
       <textarea id="inp" rows="1" placeholder="例：下周五前交近代史论文"></textarea>
       <button class="send" id="addBtn" aria-label="添加">
@@ -294,10 +417,43 @@ input[type=file]{display:none}
 <dialog id="editDlg">
   <div class="sheet">
     <div class="handle"></div>
-    <h3>编辑任务</h3>
+    <h3 id="e-h3">编辑任务</h3>
+    <div class="kinds" id="e-kinds">
+      <button data-kind="task">短期任务</button>
+      <button data-kind="plan">长期计划</button>
+    </div>
     <div class="field"><label>标题</label><input type="text" id="e-title"></div>
-    <div class="field"><label>截止时间</label><input type="datetime-local" id="e-due"></div>
-    <div class="field"><label>地点（选填）</label><input type="text" id="e-place" placeholder="如：三教 305"></div>
+    <div id="f-due">
+      <div class="field"><label>截止时间</label><input type="datetime-local" id="e-due"></div>
+      <div class="field"><label>地点（选填）</label><input type="text" id="e-place" placeholder="如：三教 305"></div>
+    </div>
+    <div id="f-plan" style="display:none">
+      <div class="field">
+        <label>想什么时候收尾（选填）</label>
+        <input type="date" id="e-td">
+      </div>
+      <div class="planrow">
+        <div class="field">
+          <label>每周推进</label>
+          <div class="num" id="e-pace-wrap">
+            <button id="e-wm" aria-label="减少">−</button>
+            <b id="e-wg">1</b>
+            <button id="e-wp" aria-label="增加">＋</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>几点提醒</label>
+          <input type="time" id="e-rt">
+        </div>
+      </div>
+      <div class="subs-tip" id="e-pace-tip" style="margin-top:-6px;margin-bottom:14px">填了收尾日，就按剩下的步数自动算每周推几步；留空就按每周 1 步慢慢来。</div>
+    </div>
+    <div class="field">
+      <label id="e-subs-label">拆成几步（一行一步，选填）</label>
+      <textarea id="e-subs"></textarea>
+      <div class="subs-tip" id="e-subs-tip">行首写时间：11/18、明天、下周三 18:00。不写时间的，会自动均分到截止前。</div>
+      <div class="subs-prev" id="e-subs-prev"></div>
+    </div>
     <div class="field"><label>分类</label><div class="cats" id="e-cats"></div></div>
     <div class="field" id="e-raw-wrap"><label>原始消息</label><div class="raw-box" id="e-raw"></div></div>
     <div class="dlg-actions">
@@ -319,12 +475,12 @@ input[type=file]{display:none}
     <button data-act="gh">☁️ 自动同步到主屏幕：关</button>
     <button data-act="ghCfg">⚙️ 云同步设置</button>
     <button data-act="pull">⬇️ 从云端拉回任务</button>
-    <button data-act="syncBear">📲 手动同步一次（Scriptable 小组件）</button>
+    <button data-act="syncBear">📲 手动同步一次</button>
     <button data-act="bear">🐻 页面里的小熊：开</button>
     <div class="mtitle">管理</div>
     <button data-act="clearDone">🧹 清除已完成</button>
     <button data-act="prune">🗑️ 清理过期任务</button>
-    <div class="mnote">截止时间过去 5 天后自动清除，不用手动点</div>
+    <div class="mnote">截止时间过去 5 天后自动清除；长期计划没有截止日，不会被清。</div>
     <button data-act="close" class="danger">关闭</button>
   </div>
 </dialog>
@@ -566,6 +722,7 @@ function parseText(raw){
     .replace(/[，,。;；:：、\-—~\s]+$/, '')
     .replace(/^(请于|请|于|在)\s*/, '')
     .replace(/^(之前|以前|前)\s*/, '')
+    .replace(/\s(交|提交|上交)$/, '')
     .replace(/^[，,。;；:：、\-—~\s]+/, '');
 
   if(!title) title = raw.trim().slice(0, 30) || '未命名任务';
@@ -614,16 +771,165 @@ const KEEP_MS = KEEP_DAYS * 864e5;
 function pruneOld(){
   const cut = Date.now() - KEEP_MS;
   const before = tasks.length;
-  tasks = tasks.filter(function(t){ return !(t.due && t.due < cut); });
+  // 长期计划没有截止日，永远不清；只有真正的 deadline 任务按 5 天规则走
+  tasks = tasks.filter(function(t){ return t.kind === 'plan' || !(t.due && t.due < cut); });
   const n = before - tasks.length;
   if(n > 0) save();   // save 里会顺带把删除结果推到云端
   return n;
 }
 
+/* ================= 拆分步骤 =================
+   一个任务可以拆成几步，每步有自己的时间点。
+   提醒、排序、分组都看「最近一个没做完的步骤」，
+   主截止仍然是最硬的上限。 */
+function subList(t){ return Array.isArray(t.subs) ? t.subs : []; }
+function nextSub(t){
+  const open = subList(t).filter(s=>!s.done);
+  if(!open.length) return null;
+  return open.slice().sort((a,b)=>(a.due||0)-(b.due||0))[0];
+}
+function effDue(t){
+  const s = nextSub(t);
+  if(!s) return t.due || 0;
+  return Math.min(s.due || t.due || 0, t.due || 0);
+}
+function subStat(t){
+  const all = subList(t);
+  if(!all.length) return null;
+  return {done: all.filter(s=>s.done).length, total: all.length};
+}
+function stepNo(t, sub){
+  const i = subList(t).indexOf(sub);
+  return i < 0 ? 0 : i + 1;
+}
+/* 勾掉一步；全部勾完就把整件标完成。返回剩余步数 */
+function finishStep(t, sub){
+  sub.done = true;
+  const left = subList(t).filter(s=>!s.done).length;
+  if(left === 0){ t.done = true; t.doneAt = Date.now(); }
+  return left;
+}
+
+/* ================= 长期计划 =================
+   和 deadline 任务不是一回事：
+   · 没有截止日，只有「按顺序的步骤」和「每周推进几步」；
+   · 不倒数、不标逾期，只看本周动没动；
+   · 本周推进过就彻底安静，下周重新开始。 */
+const isPlan = t => !!t && t.kind === 'plan';
+const taskOnly = () => tasks.filter(t=>!isPlan(t));
+const planOnly = () => tasks.filter(isPlan);
+const planSteps = t => (Array.isArray(t.subs) ? t.subs : []);
+const nextStep = t => planSteps(t).filter(s=>!s.done)[0] || null;
+function planStat(t){
+  const all = planSteps(t);
+  if(!all.length) return {done:0, total:0, pct:0};
+  const done = all.filter(s=>s.done).length;
+  return {done, total:all.length, pct: Math.round(done / all.length * 100)};
+}
+
+/* 周一 00:00 作为一周的起点（周日晚上也算这一周） */
+function weekStart(ts){
+  const d = new Date(ts || Date.now());
+  const back = (d.getDay() + 6) % 7;
+  d.setDate(d.getDate() - back);
+  d.setHours(0,0,0,0);
+  return d.getTime();
+}
+function dayKeyOf(ts){
+  const d = new Date(ts);
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+}
+const weekKeyOf = ts => dayKeyOf(weekStart(ts));
+
+/* 某一周推进了几步 */
+function weekCount(t, ws){ return (t.weeks && t.weeks[weekKeyOf(ws)]) || 0; }
+
+/* ---- 配速：有了收尾日，就不该再由「每周几步」拍脑袋决定 ----
+   剩 12 步、剩 8 周 → 系统算出每周 2 步。时间过去，配速自己往上抬。 */
+function stepLeft(t){
+  const st = planStat(t);
+  return Math.max(0, st.total - st.done);
+}
+function planPace(t){
+  const left = stepLeft(t);
+  const tg = t.target || 0;
+  const now = Date.now();
+  if(!tg || left <= 0) return {left, weeks:0, per:0, auto:false, late:false};
+  if(tg <= now) return {left, weeks:0, per:left, auto:true, late:true};
+  const weeks = Math.max(1, Math.ceil((tg - now) / (7*864e5)));
+  return {left, weeks, per: Math.max(1, Math.ceil(left / weeks)), auto:true, late:false};
+}
+/* 按时间进度，到今天本该完成几步 */
+function shouldDone(t){
+  const st = planStat(t);
+  const tg = t.target || 0;
+  if(!st.total || !tg) return 0;
+  const start = t.created || Date.now();
+  const span = Math.max(1, tg - start);
+  const el = Math.min(span, Math.max(0, Date.now() - start));
+  return Math.ceil(st.total * el / span);
+}
+/* 落后了几步（提醒就看这个：没欠账就不吵你） */
+function planDebt(t){
+  const st = planStat(t);
+  if(!st.total) return 0;
+  return Math.max(0, Math.min(st.total - st.done, shouldDone(t) - st.done));
+}
+
+/* 本周目标：有收尾日就跟着配速走，没有就用固定步数；上周挪过来的算进来 */
+function weekGoalOf(t){
+  const pace = planPace(t);
+  const base = pace.auto && !pace.late ? pace.per : (t.weekGoal || 1);
+  const mk = t.makeup;
+  if(mk && mk.week === weekKeyOf() && mk.n > 0) return base + mk.n;
+  return base;
+}
+/* 本周还欠多少步 */
+function weekLeft(t){
+  return Math.max(0, weekGoalOf(t) - weekCount(t, weekStart()));
+}
+/* 本周动过没有 */
+function movedThisWeek(t){ return (t.advancedAt || 0) >= weekStart(); }
+
+/* 上周欠账，需要用户自己决定怎么办 */
+function planVerdict(t){
+  const thisWeek = weekStart();
+  const prevWeek = weekStart(addDays(thisWeek, -1).getTime());
+  const k = weekKeyOf(prevWeek);
+  if(t.created && t.created >= thisWeek) return null;   // 这周才建的，不追究
+  if(t.verdicts && t.verdicts[k]) return null;          // 已经处理过
+  const pc = planPace(t);
+  const goal = pc.auto && !pc.late ? pc.per : (t.weekGoal || 1);
+  const did = weekCount(t, prevWeek);
+  if(did >= goal) return null;
+  return {key:k, did, goal};
+}
+
+/* 收尾日过了还没走完：只问一次，不替你决定 */
+function planLate(t){
+  const tg = t.target || 0;
+  if(!tg || t.done || t.paused) return null;
+  if(Date.now() < tg) return null;
+  const k = dayKeyOf(tg);
+  if(t.targetLog && t.targetLog[k]) return null;
+  const left = stepLeft(t);
+  if(!left) return null;
+  return {key:k, left, target:tg};
+}
+
+function planLabel(t){
+  const d = t.advancedAt || 0;
+  if(!d) return '还没开始';
+  const days = Math.floor((startOfDay(Date.now()) - startOfDay(d)) / 864e5);
+  if(days <= 0) return '今天推进过';
+  if(days === 1) return '昨天推进过';
+  return `${days} 天前推进过`;
+}
+
 /* ================= 渲染 ================= */
 function urgencyOf(t){
   if(t.done) return 'done';
-  const diff = t.due - Date.now();
+  const diff = effDue(t) - Date.now();
   if(diff < 0) return 'overdue';
   if(diff < 24*36e5) return 'urgent';
   if(diff < 3*864e5) return 'soon';
@@ -631,7 +937,7 @@ function urgencyOf(t){
 }
 function badgeOf(t){
   if(t.done) return '已完成';
-  const diff = t.due - Date.now();
+  const diff = effDue(t) - Date.now();
   if(diff < 0){
     const days = Math.floor(-diff / 864e5);
     const hrs = Math.floor(-diff / 36e5);
@@ -640,13 +946,13 @@ function badgeOf(t){
   const hrs = Math.floor(diff / 36e5);
   if(hrs < 1) return `剩 ${Math.max(1, Math.floor(diff/6e4))} 分钟`;
   if(hrs < 24) return `剩 ${hrs} 小时`;
-  const days = Math.round((startOfDay(t.due) - startOfDay(Date.now())) / 864e5);
+  const days = Math.round((startOfDay(effDue(t)) - startOfDay(Date.now())) / 864e5);
   if(days <= 0) return '今天截止';
   return `剩 ${days} 天`;
 }
 function bucketOf(t){
   const now = Date.now();
-  const due = t.due;
+  const due = effDue(t);
   const endToday = new Date(); endToday.setHours(23,59,59,999);
   if(due < now) return 'overdue';
   if(due <= endToday.getTime()) return 'today';
@@ -663,21 +969,61 @@ function updateBadge(n){
   }catch(e){}
 }
 
+/* ---------- 两屏切换 ---------- */
+let view = 'task';
+function updateTabs(){
+  $('#tabN-task').textContent = taskOnly().filter(t=>!t.done).length;
+  $('#tabN-plan').textContent = planOnly().filter(p=>!p.done).length;
+}
+function setView(v){
+  view = (v === 'plan') ? 'plan' : 'task';
+  try{ localStorage.setItem('ddl_view_v1', view); }catch(e){}
+  const app = document.querySelector('.app');
+  if(app) app.dataset.view = view;
+  [...$('#tabs').children].forEach(b=>b.classList.toggle('on', b.dataset.view === view));
+  const isP = view === 'plan';
+  $('#hTitle').textContent = isP ? '长期计划' : 'DDL 收件箱';
+  $('#hTag').textContent = isP ? '没有死线，只有一步步往前挪' : '微信里的碎片，倒进这里就不会忘';
+  if(isP){
+    document.title = '长期计划';
+    renderPlans();
+  } else {
+    const n = taskOnly().filter(t=>!t.done).length;
+    document.title = n ? `(${n}) DDL 收件箱` : 'DDL 收件箱';
+  }
+}
+function newPlan(){
+  openEdit({
+    id: null, kind: 'plan', title: '', cat: 'other',
+    weekGoal: 1, remindHour: 20, target: 0,
+    weeks: {}, verdicts: {}, targetLog: {}, advancedAt: 0, subs: [], created: Date.now()
+  }, true);
+}
+
 function render(){
+  renderTasks();
+  renderPlans();
+  updateTabs();
+  if(justAdded) setTimeout(function(){ justAdded = null; }, 500);
+}
+
+/* ---------- 第 1 屏：待办 ---------- */
+function renderTasks(){
   const main = $('#main');
   updateSetupTip();
-  const active = tasks.filter(t=>!t.done);
-  const done = tasks.filter(t=>t.done);
+  const shorts = taskOnly();
+  const active = shorts.filter(t=>!t.done);
+  const done = shorts.filter(t=>t.done);
 
   const now = Date.now();
   const endToday = new Date(); endToday.setHours(23,59,59,999);
   $('#s-todo').textContent = active.length;
-  $('#s-today').textContent = active.filter(t=>t.due <= endToday.getTime() && t.due >= now).length;
-  $('#s-over').textContent = active.filter(t=>t.due < now).length;
-  document.title = active.length ? `(${active.length}) DDL 收件箱` : 'DDL 收件箱';
+  $('#s-today').textContent = active.filter(t=>effDue(t) <= endToday.getTime() && effDue(t) >= now).length;
+  $('#s-over').textContent = active.filter(t=>effDue(t) < now).length;
+  if(view !== 'plan') document.title = active.length ? `(${active.length}) DDL 收件箱` : 'DDL 收件箱';
   updateBadge(active.length);
 
-  if(tasks.length === 0){
+  if(!shorts.length){
     main.innerHTML = `
       <div class="empty">
         <div class="em">📥</div>
@@ -690,7 +1036,6 @@ function render(){
         </div>
         <p class="tip">支持一次粘贴好几条，会自动拆成多个任务</p>
       </div>`;
-    justAdded = null;
     return;
   }
 
@@ -704,7 +1049,7 @@ function render(){
 
   let html = '';
   groups.forEach(g=>{
-    const list = active.filter(t=>bucketOf(t)===g.k).sort((a,b)=>a.due-b.due);
+    const list = active.filter(t=>bucketOf(t)===g.k).sort((a,b)=>effDue(a)-effDue(b));
     if(!list.length) return;
     html += `<div class="group"><div class="gtitle ${g.cls||''}">${g.name}<span class="cnt">${list.length}</span></div>`;
     list.forEach(t=>{ html += cardHTML(t); });
@@ -717,16 +1062,228 @@ function render(){
     html += `</div>`;
   }
 
-  main.innerHTML = html;
+  if(!active.length){
+    html += `<div class="empty" style="padding:34px 20px 8px">
+      <div class="em">🌤️</div>
+      <h3>眼下没有要交的东西</h3>
+      <p>长期计划在「计划」那一页，<br>不赶时间，慢慢挪。</p>
+    </div>`;
+  }
 
-  if(justAdded) setTimeout(function(){ justAdded = null; }, 500);
+  main.innerHTML = html;
+}
+
+/* ---------- 第 2 屏：长期计划 ---------- */
+function renderPlans(){
+  const box = $('#planMain');
+  if(!box) return;
+
+  const all = planOnly();
+  const live = all.filter(p=>!p.done && !p.paused);
+  const paused = all.filter(p=>!p.done && p.paused);
+  const done = all.filter(p=>p.done).sort((a,b)=>(b.doneAt||0)-(a.doneAt||0)).slice(0,8);
+
+  /* 顶部统计 */
+  const weekSteps = live.reduce((n,p)=>n + weekCount(p, weekStart()), 0);
+  const lagN = live.filter(p=>planDebt(p) > 0).length;
+  $('#p-run').textContent = live.length;
+  $('#p-week').textContent = weekSteps;
+  $('#p-lag').textContent = lagN;
+  $('#stat-lag').classList.toggle('hot', lagN > 0);
+
+  if(!all.length){
+    box.innerHTML = `
+      <div class="empty" style="padding:40px 20px 10px">
+        <div class="em">🌱</div>
+        <h3>还没有长期计划</h3>
+        <p>没有人给你定日子、但又拖不起的事：<br>考雅思、做作品集、准备保研材料。<br><br>写个大概的收尾日，系统自己算每周<br>该推几步，落后了才会叫你。</p>
+        <div class="samples" style="margin-top:18px">
+          <button class="sample" data-pplan="1">先建一个试试 →</button>
+        </div>
+      </div>`;
+    return;
+  }
+
+  let html = '';
+
+  if(live.length){
+    const lateN = live.filter(p=>planLate(p)).length;
+    html += `<div class="plead"><span class="dot${lateN?' warn':''}"></span>${
+      live.length} 个在追${lateN ? `，${lateN} 个过了收尾日` : '，' + (lagN ? lagN + ' 个落后' : '脚步都跟得上')}</div>`;
+    live.forEach(p=>{ html += planHTML(p); });
+  }
+
+  if(paused.length){
+    html += `<div class="group"><div class="gtitle">已暂停<span class="cnt">${paused.length}</span></div>`;
+    paused.forEach(p=>{ html += planHTML(p); });
+    html += `</div>`;
+  }
+
+  html += histHTML();
+
+  if(done.length){
+    html += `<div class="group"><div class="gtitle">走完了<span class="cnt">${done.length}</span></div>`;
+    done.forEach(p=>{ html += planHTML(p); });
+    html += `</div>`;
+  }
+
+  box.innerHTML = html;
+}
+
+/* 推进记录：直接读每一步的完成时间，按天倒序 */
+const HIST_MAX = 12;
+let histOpen = false;
+function histHTML(){
+  const rows = [];
+  planOnly().forEach(function(p){
+    planSteps(p).forEach(function(s){
+      if(s.done && s.doneAt) rows.push({at: s.doneAt, plan: p.title, step: s.title, pid: p.id});
+    });
+  });
+  if(!rows.length) return '';
+  rows.sort((a,b)=>b.at - a.at);
+
+  const show = histOpen ? rows.slice(0, 60) : rows.slice(0, HIST_MAX);
+  const byDay = {};
+  show.forEach(function(r){
+    const k = dayKeyOf(r.at);
+    (byDay[k] = byDay[k] || []).push(r);
+  });
+
+  let html = `<div class="hist"><div class="gtitle">推进记录<span class="cnt">${rows.length} 步</span></div>`;
+  Object.keys(byDay).sort().reverse().forEach(function(k){
+    const list = byDay[k];
+    const d = new Date(list[0].at);
+    const wd = ['周日','周一','周二','周三','周四','周五','周六'][d.getDay()];
+    html += `<div class="hday"><div class="hday-t"><i></i>${d.getMonth()+1} 月 ${d.getDate()} 日 · ${wd}${
+      list.length > 1 ? `<span class="n">${list.length} 步</span>` : ''}</div>`;
+    list.forEach(function(r){
+      html += `<div class="hitem"><span class="hk">${pad(d2h(r.at))}</span><span class="hp">${esc(r.plan)}</span><span class="hs">${esc(r.step)}</span></div>`;
+    });
+    html += `</div>`;
+  });
+  if(rows.length > HIST_MAX && !histOpen){
+    html += `<button class="hmore" id="histMore">还有 ${rows.length - HIST_MAX} 步，展开</button>`;
+  }
+  html += `</div>`;
+  return html;
+}
+function d2h(ts){ return new Date(ts).getHours() + ':' + pad(new Date(ts).getMinutes()); }
+
+/* ---- 计划卡片 ---- */
+function planHTML(p){
+  const st = planStat(p);
+  const nx = nextStep(p);
+  const pace = planPace(p);
+  const debt = planDebt(p);
+  const lag = !p.paused && !p.done && !movedThisWeek(p) && (p.created || 0) < weekStart();
+  const late = p.paused ? null : planLate(p);
+  const v = (p.paused || late) ? null : planVerdict(p);
+  const pop = (p.id === justAdded) ? ' pop' : '';
+
+  let meta = '';
+  if(p.done){
+    meta = `<span class="ok">全部 ${st.total} 步走完</span>`;
+  } else if(p.paused){
+    meta = `<span>已暂停</span><span class="sep">·</span><span>剩 ${stepLeft(p)} 步</span>`;
+  } else if(!st.total){
+    meta = `<span class="warn">还没写步骤</span>`;
+  } else if(pace.auto && pace.late){
+    meta = `<span class="warn">收尾日已过</span><span class="sep">·</span><span>还剩 ${stepLeft(p)} 步</span>`;
+  } else if(pace.auto){
+    meta = `<span>还剩 ${pace.weeks} 周</span><span class="sep">·</span><span>每周 ${pace.per} 步</span>`;
+    if(debt > 0) meta += `<span class="sep">·</span><span class="warn">落后 ${debt} 步</span>`;
+    else meta += `<span class="sep">·</span><span class="ok">跟上节奏</span>`;
+  } else {
+    meta = `<span>本周 ${weekCount(p, weekStart())}/${weekGoalOf(p)} 步</span>`;
+    if(weekLeft(p) === 0) meta += `<span class="sep">·</span><span class="ok">本周达成</span>`;
+    else meta += `<span class="sep">·</span><span class="warn">还差 ${weekLeft(p)} 步</span>`;
+    if(!p.done) meta += `<span class="sep">·</span><span>${planLabel(p)}</span>`;
+  }
+
+  let body = '';
+  if(p.done){
+    body = '';
+  } else if(late){
+    body += `<div class="pv">
+      <div class="pv-t"><b>${fmtDate(late.target)}</b> 到了，还剩 <b>${late.left}</b> 步没走。</div>
+      <div class="pv-btns">
+        <button data-pact="extend">再给 4 周</button>
+        <button data-pact="trim">砍掉几步</button>
+        <button data-pact="nodate">不设期限了</button>
+      </div>
+    </div>`;
+  } else if(v){
+    body += `<div class="pv">
+      <div class="pv-t">上周只推进了 <b>${v.did}/${v.goal}</b> 步。这一周你想怎么办？</div>
+      <div class="pv-btns">
+        <button data-pact="defer">挪到本周补</button>
+        <button data-pact="skip">跳过这周</button>
+        <button data-pact="pause">先停一停</button>
+      </div>
+    </div>`;
+  } else if(nx){
+    body += `<div class="p-next"><span class="k">下一步</span><b>${esc(nx.title)}</b></div>`;
+  } else if(st.total === 0){
+    body += `<div class="p-next"><span class="k">提示</span><b>还没写步骤，点「编辑」把计划拆成几步</b></div>`;
+  }
+
+  let acts = '';
+  if(p.done){
+    acts = '';
+  } else if(late || v){
+    /* 账没算清之前先别急着往下推 */
+    acts = `<div class="p-acts">
+      <button class="p-btn" data-pact="edit">编辑</button>
+    </div>`;
+  } else if(!p.paused && nx){
+    acts = `<div class="p-acts">
+      <button class="p-btn go" data-pact="step">推进一步</button>
+      <button class="p-btn" data-pact="edit">编辑</button>
+      <button class="p-btn pause" data-pact="pause">暂停</button>
+    </div>`;
+  } else {
+    acts = `<div class="p-acts">
+      <button class="p-btn go" data-pact="resume">${p.paused ? '继续这个计划' : '查看'}</button>
+      <button class="p-btn" data-pact="edit">编辑</button>
+    </div>`;
+  }
+
+  return `
+  <div class="plan ${lag?'lag':''} ${p.paused?'paused':''} ${p.done?'done':''}${pop}" data-pid="${p.id}">
+    <div class="p-top">
+      <div class="p-title">${esc(p.title)}</div>
+      <div class="p-no">${st.done}/${st.total}</div>
+    </div>
+    <div class="p-bar"><i style="width:${st.pct}%"></i></div>
+    <div class="p-meta">${meta}</div>
+    ${body}
+    ${acts}
+  </div>`;
 }
 
 function cardHTML(t){
   const c = catOf(t.cat);
   const u = urgencyOf(t);
-  const timeStr = fmtTime(t.due);
+  const stat = subStat(t);
+  const sub = t.done ? null : nextSub(t);
   const pop = (t.id === justAdded) ? ' pop' : '';
+  const mainDue = t.due || 0;
+  const mainStr = mainDue ? fmtDate(mainDue) + (fmtTime(mainDue) ? ' ' + fmtTime(mainDue) : '') : '';
+  let subHTML = '';
+  if(stat && stat.total > 1){
+    subHTML += `<div class="prog">${subList(t).map(s=>`<i class="${s.done?'on':''}"></i>`).join('')}</div>`;
+  }
+  if(sub){
+    subHTML += `<div class="t-sub">
+      <span class="st">${stat ? stat.done + '/' + stat.total : ''}</span>
+      <div class="step-main">
+        <div class="step-t">${esc(sub.title)}</div>
+        <div class="step-d">${mdShort(sub.due)}${fmtTime(sub.due)?' '+fmtTime(sub.due):''}</div>
+      </div>
+      <button class="sbtn" data-act="step" aria-label="完成这一步">✓</button>
+    </div>`;
+  }
   return `
   <div class="task ${u}${pop}" data-id="${t.id}">
     <button class="check ${t.done?'on':''}" data-act="toggle" aria-label="完成">✓</button>
@@ -735,9 +1292,10 @@ function cardHTML(t){
       <div class="t-meta">
         <span class="cat"><span class="dot" style="background:${c.color}"></span>${c.label}</span>
         <span class="sep">·</span>
-        <span>${fmtDate(t.due)}${timeStr?' '+timeStr:''}</span>
+        <span>${stat ? '整件 ' : ''}${mainStr}</span>
       </div>
       ${t.place ? `<div class="t-place"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>${esc(t.place)}</div>` : ''}
+      ${subHTML}
     </div>
     <div class="t-right"><span class="badge ${u}">${badgeOf(t)}</span></div>
   </div>`;
@@ -832,12 +1390,102 @@ function renderCatbar(){
   ).join('');
 }
 
+/* 计划卡片上的操作 */
+function handlePlan(p, pact){
+  if(pact === 'step'){
+    const s = nextStep(p);
+    if(!s) return;
+    s.done = true;
+    s.doneAt = Date.now();
+    p.advancedAt = Date.now();
+    p.weeks = p.weeks || {};
+    const wk = weekKeyOf();
+    p.weeks[wk] = (p.weeks[wk] || 0) + 1;
+    const leftAll = planSteps(p).filter(x=>!x.done).length;
+    if(leftAll === 0){ p.done = true; p.doneAt = Date.now(); }
+    justAdded = p.id;
+    save(); render();
+    toast(leftAll ? `推进一步 ✓ 还剩 ${leftAll} 步` : '整个计划走完了，厉害');
+    return;
+  }
+  if(pact === 'edit'){ openEdit(p); return; }
+  if(pact === 'pause'){
+    p.paused = true; save(); render(); toast('先停一停，不催你了');
+    return;
+  }
+  if(pact === 'resume'){
+    p.paused = false;
+    p.advancedAt = Date.now();
+    /* 暂停期间不算欠账，重新开始时别一上来就翻旧账 */
+    const pv = planVerdict(p);
+    if(pv){ p.verdicts = p.verdicts || {}; p.verdicts[pv.key] = 'skip'; }
+    save(); render(); toast('接着来');
+    return;
+  }
+  if(pact === 'defer' || pact === 'skip'){
+    const v = planVerdict(p);
+    if(v){
+      p.verdicts = p.verdicts || {};
+      p.verdicts[v.key] = pact;
+      if(pact === 'defer'){
+        p.makeup = {week: weekKeyOf(), n: v.goal - v.did};
+      }
+    }
+    save(); render();
+    toast(pact === 'defer'
+      ? `本周目标改成 ${weekGoalOf(p)} 步，补上就行`
+      : '这周跳过，不算你的欠账');
+    return;
+  }
+  if(pact === 'extend' || pact === 'nodate' || pact === 'trim'){
+    const lt = planLate(p);
+    if(lt){
+      p.targetLog = p.targetLog || {};
+      p.targetLog[lt.key] = pact;
+      if(pact === 'extend'){
+        const d = new Date(); d.setDate(d.getDate() + 28); d.setHours(23,59,59,999);
+        p.target = d.getTime();
+        /* 配速从今天重新起算，不然一续期就是「已经超时」的状态 */
+        p.created = Date.now();
+        p.verdicts = {};
+        p.makeup = null;
+        save(); render();
+        toast(`又给 4 周，每周 ${planPace(p).per} 步`);
+        return;
+      }
+      if(pact === 'nodate'){
+        p.target = 0;
+        save(); render();
+        toast(`不设期限了，按每周 ${p.weekGoal || 1} 步慢慢来`);
+        return;
+      }
+      save(); render();
+      openEdit(p);
+      toast('删掉几步，剩下的日子就宽裕了');
+      return;
+    }
+  }
+  openEdit(p);
+}
+
 /* 事件委托：列表 */
-$('#main').addEventListener('click', e=>{
+function onListClick(e){
+  const more = e.target.closest('#histMore');
+  if(more){ histOpen = true; renderPlans(); return; }
+  if(e.target.closest('[data-pplan]')){ newPlan(); return; }
   const sample = e.target.closest('[data-sample]');
   if(sample){
     inp.value = sample.dataset.sample;
     autoGrow(); updateHint(); updateSend(); inp.focus();
+    return;
+  }
+  const planEl = e.target.closest('.plan');
+  if(planEl){
+    const p = tasks.find(x=>x.id === planEl.dataset.pid);
+    if(!p) return;
+    const a = e.target.closest('[data-pact]');
+    const pact = a ? a.dataset.pact : null;
+    handlePlan(p, pact);
     return;
   }
   const taskEl = e.target.closest('.task');
@@ -849,13 +1497,30 @@ $('#main').addEventListener('click', e=>{
   const act = actEl ? actEl.dataset.act : null;
   if(act === 'toggle'){
     t.done = !t.done;
-    if(t.done) t.doneAt = Date.now();
+    if(t.done){
+      t.doneAt = Date.now();
+      subList(t).forEach(s=>{ s.done = true; });
+    } else if(t.subs && t.subs.length && t.subs.every(s=>s.done)){
+      // 取消完成时把最后一步退回未完成，否则会卡在"全勾完但没有下一步"
+      t.subs[t.subs.length - 1].done = false;
+    }
     save(); render();
     if(t.done) toast('完成 ✓');
+  } else if(act === 'step'){
+    const s = nextSub(t);
+    if(s){
+      const left = finishStep(t, s);
+      save(); render();
+      toast(left ? `这一步完成，还剩 ${left} 步` : '几步都做完了 ✓');
+    }
   } else if(act === 'edit'){
     openEdit(t);
   }
-});
+}
+
+/* 两个屏共用同一套点击逻辑：卡片、按钮都在里面 */
+$('#main').addEventListener('click', onListClick);
+$('#planMain').addEventListener('click', onListClick);
 
 /* 分类 chip */
 $('#catbar').addEventListener('click', e=>{
@@ -868,6 +1533,16 @@ $('#catbar').addEventListener('click', e=>{
 
 /* 提交 */
 $('#addBtn').addEventListener('click', addTask);
+/* 新建长期计划：不走自然语言解析，直接开空表单 */
+$('#addPlan').addEventListener('click', function(){
+  setView('plan');
+  newPlan();
+});
+$('#pNew').addEventListener('click', newPlan);
+$('#tabs').addEventListener('click', function(e){
+  const b = e.target.closest('[data-view]');
+  if(b) setView(b.dataset.view);
+});
 inp.addEventListener('input', ()=>{ autoGrow(); updateHint(); });
 inp.addEventListener('keydown', e=>{
   if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); addTask(); }
@@ -882,44 +1557,277 @@ hint.addEventListener('click', e=>{
 
 /* ================= 编辑弹窗 ================= */
 const editDlg = $('#editDlg');
-let editing = null, editIsNew = false, editCat = 'course';
+let editing = null, editIsNew = false, editCat = 'course', editKind = 'task', editWeekGoal = 1;
+
+/* 任务 / 计划 两套字段，切换时只改显示 */
+function setEditKind(kind){
+  editKind = kind;
+  const isP = kind === 'plan';
+  [...$('#e-kinds').children].forEach(b=>b.classList.toggle('on', b.dataset.kind === kind));
+  $('#f-due').style.display = isP ? 'none' : '';
+  $('#f-plan').style.display = isP ? '' : 'none';
+  $('#e-h3').textContent = editIsNew ? (isP ? '新建长期计划' : '新建任务') : (isP ? '编辑长期计划' : '编辑任务');
+  $('#e-subs-label').textContent = isP ? '按顺序写步骤（一行一步）' : '拆成几步（一行一步，选填）';
+  $('#e-subs').placeholder = isP
+    ? '背完 3000 核心词\n口语 Part 1 素材\n写作小作文模板\n真题刷完 10 套'
+    : '11/18 查文献\n11/22 写初稿\n11/28 改完交';
+  $('#e-subs-tip').textContent = isP
+    ? '不用写日期。按顺序写，一次只走一步，「下一步」永远只有一个。'
+    : '行首写时间：11/18、明天、下周三 18:00。不写时间的，会自动均分到截止前。';
+  if(isP) refreshPace();
+}
 
 function openEdit(t, isNew){
   if(!isNew && !t) return;
   editing = t;
   editIsNew = !!isNew;
-  editCat = t.cat;
-  $('#e-title').value = t.title;
-  $('#e-due').value = toLocalInput(t.due);
+  editCat = t.cat || 'course';
+  editWeekGoal = t.weekGoal || 1;
+  $('#e-title').value = t.title || '';
+  $('#e-due').value = t.due ? toLocalInput(t.due) : '';
   $('#e-place').value = t.place || '';
   $('#e-raw').textContent = t.raw || '';
   $('#e-raw-wrap').style.display = (t.raw && !isNew) ? '' : 'none';
   $('#e-cats').innerHTML = CATS.map(c=>
     `<button class="chip ${editCat===c.id?'on':''}" data-ecat="${c.id}">${c.label}</button>`
   ).join('');
+  $('#e-wg').textContent = editWeekGoal;
+  $('#e-rt').value = pad(t.remindHour == null ? 20 : t.remindHour) + ':00';
+  $('#e-td').value = t.target ? toDateInput(t.target) : '';
+
+  const isP = isPlan(t);
+  $('#e-subs').value = (isP ? planSteps(t) : subList(t)).map(function(s){
+    return (s.due && !isP ? mdShort(s.due) + ' ' : '') + s.title;
+  }).join('\n');
+
+  setEditKind(isP ? 'plan' : 'task');
+  /* 类型只在新建时能选：已经存在的条目改类型会把字段搞乱 */
+  $('#e-kinds').style.display = isNew ? '' : 'none';
+  updateSubsPrev();
+  refreshPace();
   $('#e-del').style.display = isNew ? 'none' : '';
   editDlg.showModal();
 }
+
+/* ---- 拆分步骤：一行一步，行首可带时间 ---- */
+const mdShort = d => { const x = new Date(d); return (x.getMonth()+1) + '/' + x.getDate(); };
+
+function parseSubs(text, parentDue, noDate){
+  const lines = String(text||'').split('\n').map(s=>s.trim()).filter(Boolean);
+  if(!lines.length) return [];
+
+  /* 长期计划的步骤不带日期，整行就是这一步的内容 */
+  if(noDate){
+    return lines.map(function(line){
+      return {id: uid(), title: line, done: false};
+    });
+  }
+
+  const items = lines.map(function(line){
+    const p = parseText(line);
+    return {title: p.title, due: p.due || null};
+  });
+
+  const now = Date.now();
+  const end = parentDue || (now + 7*864e5);
+
+  // 写错顺序（后面的比前面的早）就往后挪一小时，保证步骤有先后
+  let last = now;
+  items.forEach(function(it){
+    if(!it.due) return;
+    if(it.due <= last) it.due = last + 36e5;
+    last = it.due;
+  });
+
+  // 没写时间的：夹在前后两个时间点之间均分
+  for(let i = 0; i < items.length; i++){
+    if(items[i].due) continue;
+    let j = i;
+    while(j < items.length && !items[j].due) j++;
+    const from = i === 0 ? now : items[i-1].due;
+    const to = j < items.length ? items[j].due : Math.max(end, from + 864e5);
+    const n = j - i;
+    for(let k = 0; k < n; k++) items[i+k].due = Math.round(from + (to - from) * (k+1) / n);
+    i = j - 1;
+  }
+
+  // 一步也不能晚于整件的截止
+  items.forEach(function(it){ if(it.due > end) it.due = end; });
+
+  return items.map(function(it){
+    return {id: uid(), title: it.title, due: it.due, done: false};
+  });
+}
+
+function updateSubsPrev(){
+  const el = $('#e-subs-prev');
+  if(!el) return;
+  const txt = $('#e-subs').value.trim();
+  if(!txt){ el.textContent = ''; return; }
+
+  if(editKind === 'plan'){
+    const arr = parseSubs(txt, 0, true);
+    el.textContent = `认出 ${arr.length} 步：` + arr.map((s,i)=>`${i+1}. ${s.title}`).join(' · ');
+    return;
+  }
+
+  const dv = $('#e-due').value;
+  const arr = parseSubs(txt, dv ? new Date(dv).getTime() : endOfToday());
+  el.textContent = `认出 ${arr.length} 步：` +
+    arr.map(s=>`${mdShort(s.due)} ${s.title}`).join(' · ');
+}
+$('#e-subs').addEventListener('input', updateSubsPrev);
+$('#e-due').addEventListener('change', updateSubsPrev);
+
+/* ---- 配速预览 ---- */
+function toDateInput(ts){
+  const d = new Date(ts);
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+}
+/* 编辑框里正在写的步骤（保留原来的勾选状态） */
+function draftSteps(){
+  const doneSet = {};
+  if(editing && !editIsNew && isPlan(editing)){
+    planSteps(editing).forEach(s=>{ if(s.done) doneSet[s.title] = 1; });
+  }
+  return String($('#e-subs').value || '').split('\n')
+    .map(s=>s.trim()).filter(Boolean)
+    .map(t=>({title:t, done: !!doneSet[t]}));
+}
+function refreshPace(){
+  if(editKind !== 'plan') return;
+  const td = $('#e-td').value;
+  const wrap = $('#e-pace-wrap');
+  if(!wrap) return;
+  const draft = draftSteps();
+  const left = draft.filter(s=>!s.done).length;
+
+  if(td){
+    const tg = new Date(td + 'T23:59:59').getTime();
+    wrap.classList.add('auto');
+    if(tg <= Date.now()){
+      $('#e-wg').textContent = '—';
+      $('#e-pace-tip').textContent = '这个日子已经过去了，换个晚点的吧。';
+      return;
+    }
+    const weeks = Math.max(1, Math.ceil((tg - Date.now()) / (7*864e5)));
+    const per = Math.max(1, Math.ceil(left / weeks));
+    $('#e-wg').textContent = per;
+    $('#e-pace-tip').textContent = draft.length
+      ? `${weeks} 周走完 ${left} 步 → 每周 ${per} 步。落后了才会叫你。`
+      : `离这个日子还有 ${weeks} 周。写下步骤后自动算每周几步。`;
+  } else {
+    wrap.classList.remove('auto');
+    $('#e-wg').textContent = editWeekGoal;
+    $('#e-pace-tip').textContent = '填个大概的收尾日，每周推几步由系统算；留空就按这个数字固定来。';
+  }
+}
+$('#e-td').addEventListener('change', refreshPace);
+$('#e-td').addEventListener('input', refreshPace);
+$('#e-subs').addEventListener('input', refreshPace);
 $('#e-cats').addEventListener('click', e=>{
   const chip = e.target.closest('[data-ecat]');
   if(!chip) return;
   editCat = chip.dataset.ecat;
   [...$('#e-cats').children].forEach(c=>c.classList.toggle('on', c.dataset.ecat === editCat));
 });
+$('#e-kinds').addEventListener('click', e=>{
+  const b = e.target.closest('[data-kind]');
+  if(!b || b.dataset.kind === editKind) return;
+  setEditKind(b.dataset.kind);
+  updateSubsPrev();
+});
+$('#e-wm').addEventListener('click', function(){
+  editWeekGoal = Math.max(1, editWeekGoal - 1);
+  $('#e-wg').textContent = editWeekGoal;
+});
+$('#e-wp').addEventListener('click', function(){
+  editWeekGoal = Math.min(7, editWeekGoal + 1);
+  $('#e-wg').textContent = editWeekGoal;
+});
 $('#e-cancel').addEventListener('click', ()=>editDlg.close());
 $('#e-save').addEventListener('click', ()=>{
+
+  /* ---- 长期计划 ---- */
+  if(editKind === 'plan'){
+    const title = $('#e-title').value.trim() || '未命名计划';
+    const steps = parseSubs($('#e-subs').value, 0, true);
+    const oldSteps = editing && !editIsNew ? planSteps(editing) : [];
+    if(steps.length && oldSteps.length){
+      const byTitle = {};
+      oldSteps.forEach(s=>{ if(!byTitle[s.title]) byTitle[s.title] = s; });
+      steps.forEach(s=>{
+        const o = byTitle[s.title];
+        if(o){ s.id = o.id; s.done = !!o.done; }
+      });
+    }
+    const hh = parseInt(String($('#e-rt').value || '20:00').split(':')[0], 10);
+    const remindHour = isNaN(hh) ? 20 : Math.max(0, Math.min(23, hh));
+    const tdv = $('#e-td').value;
+    const target = tdv ? new Date(tdv + 'T23:59:59').getTime() : 0;
+
+    if(editIsNew){
+      tasks.push({
+        id: uid(), kind: 'plan', title, cat: editCat,
+        subs: steps, weekGoal: editWeekGoal, remindHour, target,
+        weeks: {}, verdicts: {}, targetLog: {}, advancedAt: 0, paused: false,
+        due: 0, done: false, created: Date.now()
+      });
+      justAdded = tasks[tasks.length - 1].id;
+      save(); render();
+      const pc = planPace(tasks[tasks.length - 1]);
+      toast(steps.length
+        ? (target ? `建好了，每周推 ${pc.per} 步就来得及` : `计划建好了，${steps.length} 步慢慢来`)
+        : '计划建好了，记得补上步骤');
+    } else {
+      const p = tasks.find(x=>x.id === editing.id);
+      if(p){
+        /* 换了个更晚的收尾日，就别再拿旧账压着 */
+        if(target !== (p.target || 0)){ p.targetLog = {}; }
+        p.title = title; p.cat = editCat;
+        p.target = target;
+        p.weekGoal = editWeekGoal; p.remindHour = remindHour;
+        p.subs = steps;
+        if(steps.length && steps.every(s=>s.done)){ p.done = true; p.doneAt = p.doneAt || Date.now(); }
+        else { p.done = false; delete p.doneAt; }
+      }
+      save(); render();
+    }
+    editDlg.close();
+    return;
+  }
+
+  /* ---- 短期任务 ---- */
   const title = $('#e-title').value.trim() || '未命名任务';
   const place = $('#e-place').value.trim();
   const dv = $('#e-due').value;
   const due = dv ? new Date(dv).getTime() : endOfToday();
+
+  // 拆分：按行解析，已完成的步骤尽量保留勾选状态
+  let subs = parseSubs($('#e-subs').value, due);
+  const oldSubs = editing && !editIsNew ? subList(editing) : [];
+  if(subs.length && oldSubs.length){
+    const byTitle = {};
+    oldSubs.forEach(s=>{ byTitle[s.title] = s; });
+    subs.forEach(s=>{
+      const o = byTitle[s.title];
+      if(o){ s.id = o.id; s.done = !!o.done; }
+    });
+  }
+
   if(editIsNew){
-    tasks.push({id: uid(), title, due, cat: editCat, place, raw: inp.value.trim(), done: false, created: Date.now()});
+    tasks.push({id: uid(), title, due, cat: editCat, place, raw: inp.value.trim(), done: false, created: Date.now(), subs});
     save(); render();
     inp.value = ''; autoGrow(); updateHint(); updateSend();
-    toast('已加入收件箱');
+    toast(subs.length ? `已加入，拆成 ${subs.length} 步` : '已加入收件箱');
   } else {
     const t = tasks.find(x=>x.id===editing.id);
-    if(t){ t.title = title; t.due = due; t.cat = editCat; t.place = place; }
+    if(t){
+      t.title = title; t.due = due; t.cat = editCat; t.place = place;
+      if(subs.length) t.subs = subs; else delete t.subs;
+      // 步骤全勾完的，整件也算完成
+      if(t.subs && t.subs.length && t.subs.every(s=>s.done)){ t.done = true; t.doneAt = t.doneAt || Date.now(); }
+    }
     save(); render();
   }
   editDlg.close();
@@ -965,8 +1873,22 @@ function ghReady(){ return !!(gh && gh.on && gh.token && gh.owner && gh.repo); }
 
 function buildPayload(){
   return tasks.map(t=>[
-    t.id || '', t.title || '', t.due || Date.now(),
-    t.cat || 'course', t.place || '', t.done ? 1 : 0
+    t.id || '', t.title || '', isPlan(t) ? 0 : (t.due || Date.now()),
+    t.cat || 'course', t.place || '', t.done ? 1 : 0,
+    (isPlan(t) ? planSteps(t) : subList(t)).map(s=>[s.title, s.due || 0, s.done ? 1 : 0]),
+    /* 第 8 列只有长期计划才有：老版本脚本读到 null 就当作普通任务 */
+    isPlan(t) ? [
+      t.weekGoal || 1,
+      t.remindHour == null ? 20 : t.remindHour,
+      t.advancedAt || 0,
+      t.created || 0,
+      t.weeks || {},
+      t.verdicts || {},
+      t.paused ? 1 : 0,
+      t.makeup || null,
+      t.target || 0,
+      t.targetLog || {}
+    ] : null
   ]);
 }
 
@@ -1088,17 +2010,39 @@ async function pullCloud(){
   arr.forEach(function(row){
     const id = String(row[0] || '');
     if(!id || have.has(id)) return;
+    const meta = Array.isArray(row[7]) ? row[7] : null;   // 第 8 列 = 长期计划
     const due = Number(row[2]) || 0;
-    if(!due || due < cut){ skipped++; return; }   // 超过 5 天的老任务不再捡回来
-    tasks.push({
+    if(!meta && (!due || due < cut)){ skipped++; return; }   // 超过 5 天的老任务不再捡回来
+
+    const steps = Array.isArray(row[6]) ? row[6].map(function(s){
+      return {id: uid(), title: String(s[0] || ''), due: Number(s[1]) || due, done: !!s[2]};
+    }).filter(s=>s.title) : [];
+
+    const item = {
       id: id,
       title: String(row[1] || '未命名'),
       due: due,
       cat: String(row[3] || 'course'),
       place: String(row[4] || ''),
       done: !!row[5],
-      created: Date.now()
-    });
+      created: Date.now(),
+      subs: steps
+    };
+    if(meta){
+      item.kind = 'plan';
+      item.weekGoal = Number(meta[0]) || 1;
+      item.remindHour = meta[1] == null ? 20 : Number(meta[1]);
+      item.advancedAt = Number(meta[2]) || 0;
+      item.created = Number(meta[3]) || Date.now();
+      item.weeks = (meta[4] && typeof meta[4] === 'object') ? meta[4] : {};
+      item.verdicts = (meta[5] && typeof meta[5] === 'object') ? meta[5] : {};
+      item.paused = !!meta[6];
+      item.makeup = meta[7] || null;
+      item.target = Number(meta[8]) || 0;
+      item.targetLog = (meta[9] && typeof meta[9] === 'object') ? meta[9] : {};
+    }
+
+    tasks.push(item);
     have.add(id);
     added++;
   });
@@ -1168,7 +2112,8 @@ async function syncToBear(){
     t.due || Date.now(),
     t.cat || 'course',
     t.place || '',
-    t.done ? 1 : 0
+    t.done ? 1 : 0,
+    subList(t).map(s=>[s.title, s.due, s.done ? 1 : 0])
   ]);
 
   const b64 = b64url(JSON.stringify(payload));
@@ -1307,23 +2252,39 @@ function icsFmt(d){
   return new Date(d).toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z';
 }
 function exportICS(){
-  const list = tasks.filter(t=>!t.done);
-  if(!list.length){ toast('没有待办任务可导出'); return; }
+  // 拆了步骤的任务，按步骤导；没拆的按整件导。长期计划没有具体时间点，不导日历
+  const events = [];
+  tasks.filter(t=>!t.done && t.kind !== 'plan').forEach(function(t){
+    const all = subList(t);
+    const open = all.filter(s=>!s.done);
+    if(open.length){
+      all.forEach(function(s, i){
+        if(s.done) return;
+        events.push({
+          uid: t.id + '-s' + (i+1), due: s.due, cat: t.cat,
+          title: t.title + ' · 第' + (i+1) + '步 ' + s.title
+        });
+      });
+    } else {
+      events.push({uid: t.id, due: t.due, cat: t.cat, title: t.title});
+    }
+  });
+  if(!events.length){ toast('没有待办任务可导出'); return; }
   const lines = [
     'BEGIN:VCALENDAR','VERSION:2.0',
     'PRODID:-//DDL Inbox//CN','CALSCALE:GREGORIAN','METHOD:PUBLISH'
   ];
-  list.forEach(t=>{
-    const start = t.due;
+  events.forEach(ev=>{
+    const start = ev.due;
     const end = start + 30*60*1000;
-    const summary = t.title.replace(/[,;\\]/g, ' ');
+    const summary = ev.title.replace(/[,;\\]/g, ' ');
     lines.push('BEGIN:VEVENT');
-    lines.push('UID:' + t.id + '@ddl-inbox');
+    lines.push('UID:' + ev.uid + '@ddl-inbox');
     lines.push('DTSTAMP:' + icsFmt(Date.now()));
     lines.push('DTSTART:' + icsFmt(start));
     lines.push('DTEND:' + icsFmt(end));
     lines.push('SUMMARY:' + summary);
-    lines.push('CATEGORIES:' + catOf(t.cat).label);
+    lines.push('CATEGORIES:' + catOf(ev.cat).label);
     lines.push('DESCRIPTION:来自 DDL 收件箱');
     lines.push('BEGIN:VALARM');
     lines.push('TRIGGER:-PT24H');
@@ -1339,7 +2300,7 @@ function exportICS(){
   });
   lines.push('END:VCALENDAR');
   download(lines.join('\r\n'), 'ddl-tasks.ics', 'text/calendar;charset=utf-8');
-  toast(`已导出 ${list.length} 条，导入日历即可收到提醒`);
+  toast(`已导出 ${events.length} 个时间点，导入日历即可收到提醒`);
 }
 function backup(){
   download(JSON.stringify({tasks, v:1, exported:new Date().toISOString()}, null, 2),
@@ -1404,12 +2365,12 @@ function currentSlot(){
   for(const v of SLOTS){ if(h >= v) s = v; }
   return s;
 }
-// 48 小时内到期（含已逾期不超过 3 天）的任务
+// 48 小时内到期（含已逾期不超过 3 天）的任务：拆了步的，看最近的下一步
 function dueSoon(){
   const now = Date.now();
   return tasks.filter(function(t){
-    if(t.done) return false;
-    const left = t.due - now;
+    if(t.done || t.kind === 'plan') return false;   // 计划不按 deadline 催，走另一条通道
+    const left = effDue(t) - now;
     return left <= 48*36e5 && left > -3*864e5;
   });
 }
@@ -1424,7 +2385,7 @@ function needRemind(){
   return dueSoon().filter(function(t){
     const r = t.reminded;
     return !(r && r.day === day && r.slot === slot);
-  }).sort(function(a,b){ return a.due - b.due; });
+  }).sort(function(a,b){ return effDue(a) - effDue(b); });
 }
 
 function placeBear(){
@@ -1454,7 +2415,7 @@ function updateMood(){
 function showSay(manual){
   if(!bearQueue.length){ hideSay(); return; }
   const t = bearQueue[0];
-  const left = t.due - Date.now();
+  const left = effDue(t) - Date.now();
   const hours = Math.floor(left / 36e5);
 
   let tag, cls = '';
@@ -1476,8 +2437,12 @@ function showSay(manual){
   sayTag.className = 'say-tag ' + cls;
   sayText.textContent = t.title;
   const more = bearQueue.length - 1;
-  sayMore.textContent = more > 0 ? `还有 ${more} 个也快到了` : '';
-  sayMore.style.display = more > 0 ? '' : 'none';
+  const s = nextSub(t), st = subStat(t);
+  const bits = [];
+  if(s && st) bits.push(`第 ${st.done + 1} 步 · ${s.title}`);
+  if(more > 0) bits.push(`还有 ${more} 个也快到了`);
+  sayMore.textContent = bits.join('　');
+  sayMore.style.display = bits.length ? '' : 'none';
   setActions(true);
 
   if(!manual) markReminded(t);
@@ -1505,10 +2470,19 @@ function checkBear(){
 
 $('#sayDone').addEventListener('click', function(){
   const t = bearQueue.shift();
-  if(t){ t.done = true; t.doneAt = Date.now(); }
+  let msg = '好耶，又少一件';
+  if(t){
+    const s = nextSub(t);
+    if(s){
+      const left = finishStep(t, s);
+      msg = left ? `这一步搞定，还剩 ${left} 步` : '几步全做完了 ✓';
+    } else {
+      t.done = true; t.doneAt = Date.now();
+    }
+  }
   save(); render();
   if(bearQueue.length) showSay(false); else hideSay();
-  toast('好耶，又少一件');
+  toast(msg);
 });
 $('#sayLater').addEventListener('click', function(){
   // 「等会儿」= 这次先不处理，本时段不再打扰，下个时段会再来
@@ -1520,7 +2494,7 @@ $('#sayLater').addEventListener('click', function(){
 });
 bearBody.addEventListener('click', function(){
   if(sayShowing){ hideSay(); return; }
-  const soon = dueSoon().sort(function(a,b){ return a.due - b.due; });
+  const soon = dueSoon().sort(function(a,b){ return effDue(a) - effDue(b); });
   if(!soon.length){
     sayTag.textContent = '一切都在掌控中';
     sayTag.className = 'say-tag';
@@ -1544,6 +2518,10 @@ renderCatbar();
 updateSend();
 updateGHLabels();
 render();
+/* 上次停在计划页，这次还从计划页开 */
+let savedView = 'task';
+try{ savedView = localStorage.getItem('ddl_view_v1') === 'plan' ? 'plan' : 'task'; }catch(e){}
+setView(savedView);
 placeBear();
 if(nCleaned > 0) setTimeout(function(){ toast(`已自动清理 ${nCleaned} 条过期任务`); }, 600);
 if(window.ResizeObserver){

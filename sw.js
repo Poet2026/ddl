@@ -1,4 +1,4 @@
-const CACHE = 'ddl-inbox-v5';
+const CACHE = 'ddl-inbox-v8';
 const ASSETS = [
   './',
   './index.html',
